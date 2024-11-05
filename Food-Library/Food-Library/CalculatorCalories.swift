@@ -11,11 +11,22 @@ struct CalculatorCalories: View {
     @State private var textInputHeight = ""
     @State private var textInputWeight = ""
     @State private var selectedActivity = Activity.minimal
+    /// how counting
+//    @State private var result: Float! = 0
+    @State private var firstResult: Float! = 0
+    @State private var secondResult: Int! = 0
+    @State private var secondResultSave: Int! = 0
+    @State private var secondResultMore: Int! = 0
     @State private var veightMaintence: Float! = 0
     ///other
     @State private var isTextVisible: Bool = false
     @FocusState private var focusedField: Field!
 
+    init(firstResult: Float = 0, secondResult: Int = 0, secondResultSave: Int = 0, secondResultMore: Int = 0) {
+        self.firstResult = firstResult
+        self.secondResult = secondResult
+//        self.result = result
+    }
 
     var body: some View {
         ZStack {
@@ -89,7 +100,19 @@ struct CalculatorCalories: View {
                                     VStack {
                                         Rectangle()
                                             .frame(width: 361, height: 0)
+                                        if isTextVisible {
+                                            VStack(alignment: .leading, spacing: 10) {
+                                                Text("Weight: ")
+                                                    .font(.custom("STIXTwoText_SemiBold", size: 20))
+                                                    .foregroundStyle(.button)
+                                                Text("\(secondResult) kcal - for weight maintenance")
+                                                Text("\(secondResultMore) kcal - for safe weigth loss")
+                                                Text("\(secondResultSave) kcal - for safe weight gain")
+                                            }
+                                            .padding()
+                                        }
                                         Button {
+                                            calculateTotalCaloriesWithoutActivity()
                                             isTextVisible.toggle()
                                         } label: {
                                             HStack {
@@ -111,6 +134,43 @@ struct CalculatorCalories: View {
                 // TODO: correct smth
             }
         }
+    }
+    /// func calculate
+    private func calculateTotalCaloriesWithoutActivity() {
+        guard let age = Double(textInputAge),
+              let weight = Double(textInputWeight), // Исправлено
+              let height = Double(textInputHeight) else {
+            print("Ошибка: введены неверные данные")
+            return
+        }
+
+        // Расчет базового метаболизма
+        switch selectedGender {
+        case .femaleGender:
+            firstResult = 447.593 + Float((9.247 * weight)) + Float((3.098 * height) - (4.330 * age))
+        case .maleGender:
+            firstResult = 88.362 + Float(13.397 * weight) + Float(4.799 * height) - Float(5.677 * age)
+        }
+
+        // Установка коэффициента активности
+        let activityMultiplier: Float
+        switch selectedActivity {
+        case .minimal:
+            activityMultiplier = 1.2
+        case .low:
+            activityMultiplier = 1.375
+        case .medium:
+            activityMultiplier = 1.55
+        case .high:
+            activityMultiplier = 1.725
+        case .veryHigh:
+            activityMultiplier = 1.9
+        }
+
+        secondResult = Int(firstResult * activityMultiplier)
+        secondResultSave = Int(Double(secondResult) - 0.5)
+        secondResultMore = Int(Double(secondResult) + 0.4)
+//        print(secondResult ?? 0) // Печатаем результат
     }
 }
 
