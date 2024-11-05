@@ -17,9 +17,7 @@ struct CalculatorVeight: View {
     @State private var isImageOne: Bool = true
     @FocusState private var focusedField: Field?
     @State private var scalesName: String = ""
-
     @Environment(\.managedObjectContext) private var viewContext
-
     private enum Field: Int, CaseIterable {
         case quanity
     }
@@ -139,54 +137,55 @@ struct CalculatorVeight: View {
         }
     }
 }
-    enum SideOfTypeParametr: String, CaseIterable, Identifiable {
-        case veight = "Veight"
-        case volue = "Volume"
-        var id: Self { self }
-    }
 
-    enum Product: String, CaseIterable, Identifiable {
-        case cocoaPowder = "Cocoa Powder"
-        case cream = "Cream"
-        case flour = "Flour"
-        case gelatin = "Gelatin (powder)"
-        case milk = "Milk"
-        case rice = "Rice (raw rice)"
-        case sourCream = "Sour cream"
-        case starch = "Starch"
-        case sugar = "Sugar (granulated)"
-        case water = "Water"
-        var id: Self { self }
-    }
+enum SideOfTypeParametr: String, CaseIterable, Identifiable {
+    case veight = "Veight"
+    case volue = "Volume"
+    var id: Self { self }
+}
 
-    enum QuanityTypeOfVeight: String, CaseIterable, Identifiable {
-        case gramVeight = "Gram"
-        case kilogramVeight = "Kilogram"
-        case ounceVeight = "Ounce"
-        case poundVeight = "Ib."
-        case litrVolume = "Litr"
-        case mililiterVolume = "Mililiter"
-        case glassVolume = "Glass 200 ml."
-        case tablespoonVolume = "Tablespoon"
-        case teaspoonVolume = "Teaspoon"
-        var id: Self { self }
-    }
+enum Product: String, CaseIterable, Identifiable {
+    case cocoaPowder = "Cocoa Powder"
+    case cream = "Cream"
+    case flour = "Flour"
+    case gelatin = "Gelatin (powder)"
+    case milk = "Milk"
+    case rice = "Rice (raw rice)"
+    case sourCream = "Sour cream"
+    case starch = "Starch"
+    case sugar = "Sugar (granulated)"
+    case water = "Water"
+    var id: Self { self }
+}
 
-    enum ConvertInto: String, CaseIterable, Identifiable {
-        case gram = "Gram"
-        case kilogram = "Kilogram"
-        case liter = "Liter"
-        case mililiter = "Mililiter"
-        case glass = "Glass 200 ml"
-        case tablespoon = "Tablespoon"
-        case ounce = "Ounce"
-        case pound = "Pound"
-        case teaspoon = "Teaspoon"
-        var id: Self { self }
-    }
+enum QuanityTypeOfVeight: String, CaseIterable, Identifiable {
+    case gramVeight = "Gram"
+    case kilogramVeight = "Kilogram"
+    case ounceVeight = "Ounce"
+    case poundVeight = "Ib."
+    case litrVolume = "Litr"
+    case mililiterVolume = "Mililiter"
+    case glassVolume = "Glass 200 ml."
+    case tablespoonVolume = "Tablespoon"
+    case teaspoonVolume = "Teaspoon"
+    var id: Self { self }
+}
 
-    struct CalculatorVeight_Previews: PreviewProvider {
-        static var previews: some View {
-            CalculatorVeight()
-        }
+enum ConvertInto: String, CaseIterable, Identifiable {
+    case gram = "Gram"
+    case kilogram = "Kilogram"
+    case liter = "Liter"
+    case mililiter = "Mililiter"
+    case glass = "Glass 200 ml"
+    case tablespoon = "Tablespoon"
+    case ounce = "Ounce"
+    case pound = "Pound"
+    case teaspoon = "Teaspoon"
+    var id: Self { self }
+}
+
+struct CalculatorVeight_Previews: PreviewProvider {
+    static var previews: some View {
+        CalculatorVeight()
     }
+}

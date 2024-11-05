@@ -8,11 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		1858B23E2CD81BF6005CF6F8 /* Food_LibraryApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1858B23D2CD81BF6005CF6F8 /* Food_LibraryApp.swift */; };
-		1858B2402CD81BF6005CF6F8 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1858B23F2CD81BF6005CF6F8 /* ContentView.swift */; };
 		1858B2422CD81BF8005CF6F8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1858B2412CD81BF8005CF6F8 /* Assets.xcassets */; };
 		1858B2452CD81BF8005CF6F8 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1858B2442CD81BF8005CF6F8 /* Preview Assets.xcassets */; };
 		1858B2472CD81BF8005CF6F8 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1858B2462CD81BF8005CF6F8 /* Persistence.swift */; };
-		1858B24A2CD81BF8005CF6F8 /* Food_Library.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 1858B2482CD81BF8005CF6F8 /* Food_Library.xcdatamodeld */; };
+		1858B24A2CD81BF8005CF6F8 /* Scales.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 1858B2482CD81BF8005CF6F8 /* Scales.xcdatamodeld */; };
 		1858B2512CD81C21005CF6F8 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1858B2502CD81C21005CF6F8 /* Launch Screen.storyboard */; };
 		1858B2532CD81CC6005CF6F8 /* FirstScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1858B2522CD81CC6005CF6F8 /* FirstScreen.swift */; };
 		1858B2552CD81D33005CF6F8 /* TextStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1858B2542CD81D33005CF6F8 /* TextStyle.swift */; };
@@ -29,7 +28,6 @@
 /* Begin PBXFileReference section */
 		1858B23A2CD81BF6005CF6F8 /* Food-Library.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Food-Library.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1858B23D2CD81BF6005CF6F8 /* Food_LibraryApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Food_LibraryApp.swift; sourceTree = "<group>"; };
-		1858B23F2CD81BF6005CF6F8 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		1858B2412CD81BF8005CF6F8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		1858B2442CD81BF8005CF6F8 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		1858B2462CD81BF8005CF6F8 /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
@@ -77,23 +75,13 @@
 		1858B23C2CD81BF6005CF6F8 /* Food-Library */ = {
 			isa = PBXGroup;
 			children = (
+				1858B2682CDA4D41005CF6F8 /* Style */,
+				1858B2662CDA4D12005CF6F8 /* View */,
 				1858B23D2CD81BF6005CF6F8 /* Food_LibraryApp.swift */,
-				1858B23F2CD81BF6005CF6F8 /* ContentView.swift */,
 				1858B2412CD81BF8005CF6F8 /* Assets.xcassets */,
 				1858B2462CD81BF8005CF6F8 /* Persistence.swift */,
-				1858B2482CD81BF8005CF6F8 /* Food_Library.xcdatamodeld */,
+				1858B2482CD81BF8005CF6F8 /* Scales.xcdatamodeld */,
 				1858B2432CD81BF8005CF6F8 /* Preview Content */,
-				1858B2502CD81C21005CF6F8 /* Launch Screen.storyboard */,
-				1858B2522CD81CC6005CF6F8 /* FirstScreen.swift */,
-				1858B2542CD81D33005CF6F8 /* TextStyle.swift */,
-				1858B2562CD81D4B005CF6F8 /* MyButtonStyle.swift */,
-				1858B2582CD81F77005CF6F8 /* FirstTabBar.swift */,
-				1858B25A2CD820D0005CF6F8 /* CalculatorCalories.swift */,
-				1858B25C2CD820EF005CF6F8 /* CalculatorVeight.swift */,
-				1858B25E2CD82100005CF6F8 /* Saved.swift */,
-				1858B2602CD8210E005CF6F8 /* Nuttri.swift */,
-				1858B2622CDA4916005CF6F8 /* PickerListStyle.swift */,
-				1858B2642CDA495C005CF6F8 /* TextFieldModifire.swift */,
 			);
 			path = "Food-Library";
 			sourceTree = "<group>";
@@ -104,6 +92,31 @@
 				1858B2442CD81BF8005CF6F8 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		1858B2662CDA4D12005CF6F8 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				1858B2522CD81CC6005CF6F8 /* FirstScreen.swift */,
+				1858B2582CD81F77005CF6F8 /* FirstTabBar.swift */,
+				1858B25A2CD820D0005CF6F8 /* CalculatorCalories.swift */,
+				1858B25C2CD820EF005CF6F8 /* CalculatorVeight.swift */,
+				1858B2602CD8210E005CF6F8 /* Nuttri.swift */,
+				1858B25E2CD82100005CF6F8 /* Saved.swift */,
+				1858B2502CD81C21005CF6F8 /* Launch Screen.storyboard */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		1858B2682CDA4D41005CF6F8 /* Style */ = {
+			isa = PBXGroup;
+			children = (
+				1858B2642CDA495C005CF6F8 /* TextFieldModifire.swift */,
+				1858B2622CDA4916005CF6F8 /* PickerListStyle.swift */,
+				1858B2562CD81D4B005CF6F8 /* MyButtonStyle.swift */,
+				1858B2542CD81D33005CF6F8 /* TextStyle.swift */,
+			);
+			path = Style;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -187,8 +200,7 @@
 				1858B2612CD8210E005CF6F8 /* Nuttri.swift in Sources */,
 				1858B2572CD81D4B005CF6F8 /* MyButtonStyle.swift in Sources */,
 				1858B25F2CD82100005CF6F8 /* Saved.swift in Sources */,
-				1858B24A2CD81BF8005CF6F8 /* Food_Library.xcdatamodeld in Sources */,
-				1858B2402CD81BF6005CF6F8 /* ContentView.swift in Sources */,
+				1858B24A2CD81BF8005CF6F8 /* Scales.xcdatamodeld in Sources */,
 				1858B23E2CD81BF6005CF6F8 /* Food_LibraryApp.swift in Sources */,
 				1858B2532CD81CC6005CF6F8 /* FirstScreen.swift in Sources */,
 			);
@@ -398,13 +410,13 @@
 /* End XCConfigurationList section */
 
 /* Begin XCVersionGroup section */
-		1858B2482CD81BF8005CF6F8 /* Food_Library.xcdatamodeld */ = {
+		1858B2482CD81BF8005CF6F8 /* Scales.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
 				1858B2492CD81BF8005CF6F8 /* Food_Library.xcdatamodel */,
 			);
 			currentVersion = 1858B2492CD81BF8005CF6F8 /* Food_Library.xcdatamodel */;
-			path = Food_Library.xcdatamodeld;
+			path = Scales.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
 		};
