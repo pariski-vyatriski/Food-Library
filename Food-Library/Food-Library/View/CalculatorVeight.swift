@@ -5,6 +5,7 @@
 //  Created by apple on 27.10.24.
 
 import SwiftUI
+import CoreData
 
 struct CalculatorVeight: View {
     @State private var countInto = ""
@@ -21,6 +22,7 @@ struct CalculatorVeight: View {
     private enum Field: Int, CaseIterable {
         case quanity
     }
+    @State private var isClick = true
 
     var body: some View {
         ZStack {
@@ -104,8 +106,11 @@ struct CalculatorVeight: View {
                                     .padding(1)
 
                                     Button(action: {
+                                       if isClick {
+                                            addScales()
+                                        }
                                         isImageOne.toggle()
-                                        addScales()
+                                        isClick.toggle()
                                     }) {
                                         Image(isImageOne ? "star" : "two")
 
