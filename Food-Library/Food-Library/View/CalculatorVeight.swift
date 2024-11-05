@@ -105,6 +105,7 @@ struct CalculatorVeight: View {
 
                                     Button(action: {
                                         isImageOne.toggle()
+                                        addScales()
                                     }) {
                                         Image(isImageOne ? "star" : "two")
 
@@ -134,6 +135,16 @@ struct CalculatorVeight: View {
                     }
                 }
             }
+        }
+    }
+    func addScales() {
+        let newScales = Scales(context: viewContext)
+        newScales.name = scalesName
+
+        do {
+            try viewContext.save()
+        } catch {
+            print("Error saving data: \(error.localizedDescription)")
         }
     }
 }
