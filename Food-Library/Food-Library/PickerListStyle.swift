@@ -1,18 +1,28 @@
 //
 //  PickerListStyle.swift
-//  Food-Library
+//  FoodLibrarySwiftUi
 //
-//  Created by apple on 5.11.24.
+//  Created by apple on 27.10.24.
 //
 
 import SwiftUI
 
-struct PickerListStyle: View {
-    var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+struct PickerListStyle: ViewModifier {
+    func body(content: Content) -> some View {
+        content
+            .padding(5)
+            .frame(maxWidth: .infinity, maxHeight: 40)
+            .background(.second)
+            .cornerRadius(9)
+            .shadow(radius: 1)
+            .textStyle()
+            .foregroundColor(.black)
+            .accentColor(.black)
     }
 }
 
-#Preview {
-    PickerListStyle()
+extension View {
+    func pickerListStyle() -> some View {
+        self.modifier(PickerListStyle())
+    }
 }

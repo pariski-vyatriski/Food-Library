@@ -1,18 +1,28 @@
 //
 //  TextFieldModifire.swift
-//  Food-Library
+//  FoodLibrarySwiftUi
 //
-//  Created by apple on 5.11.24.
+//  Created by apple on 27.10.24.
 //
 
 import SwiftUI
 
-struct TextFieldModifire: View {
-    var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+struct TextFieldModifier: ViewModifier {
+    func body(content: Content) -> some View {
+        content
+//            .frame(maxWidth: 361)
+            .padding(10)
+            .frame(maxWidth: .infinity)
+            .background(.second)
+            .cornerRadius(9)
+            .shadow(radius: 1)
+            .font(.system(size: 14))
+            .foregroundColor(.black)
     }
 }
 
-#Preview {
-    TextFieldModifire()
+extension View {
+    func textFieldModifier() -> some View {
+        self.modifier(TextFieldModifier())
+    }
 }

@@ -1,18 +1,48 @@
 //
 //  TextStyle.swift
-//  Food-Library
+//  FoodLibrarySwiftUi
 //
-//  Created by apple on 4.11.24.
+//  Created by apple on 27.10.24.
 //
 
 import SwiftUI
 
-struct TextStyle: View {
-    var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+struct TextStyle: ViewModifier {
+    func body(content: Content) -> some View {
+        content
+            .font(Font.custom("STIXTwoText", size: 18))
     }
 }
 
-#Preview {
-    TextStyle()
+extension View {
+    func textStyle() -> some View {
+        self.modifier(TextStyle())
+    }
+}
+
+struct TextStyleMain: ViewModifier {
+    func body(content: Content) -> some View {
+        content
+            .font(.custom("STIXTwoText_SemiBold", size: 30))
+    }
+}
+
+extension View {
+    func textStylemain() -> some View {
+        self.modifier(TextStyleMain())
+    }
+}
+
+struct NotMainText: ViewModifier {
+    func body(content: Content) -> some View {
+        content
+            .font(.custom("STIXTwoText_SemiBold", size: 20))
+            .foregroundColor(.gray)
+    }
+}
+
+extension View {
+    func notMainText() -> some View {
+        self.modifier(NotMainText())
+    }
 }

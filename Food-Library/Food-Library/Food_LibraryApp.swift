@@ -13,7 +13,7 @@ struct Food_LibraryApp: App {
 
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            FisrtScreen()
                 .environment(\.managedObjectContext, persistenceController.container.viewContext)
         }
     }

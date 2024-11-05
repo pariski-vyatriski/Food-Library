@@ -1,18 +1,47 @@
 //
 //  FirstTabBar.swift
-//  Food-Library
+//  FoodLibrarySwiftUi
 //
-//  Created by apple on 4.11.24.
+//  Created by apple on 27.10.24.
 //
 
 import SwiftUI
 
 struct FirstTabBar: View {
+    @Binding var selectedIndex: Bool
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        TabView {
+            CalculatorVeight()
+                .tabItem {
+                    Image("scales")
+
+                }
+
+            CalculatorCalories()
+                .tabItem {
+                    Image("calories")
+
+                }
+            Saved()
+                .tabItem {
+                    Image("saved")
+                }
+            Nuttri()
+                .tabItem {
+                    Image(systemName: "computer")
+                }
+            //            ViewController()
+            //                .tabItem {
+            //                    Image("saved")
+            //                }
+        }
     }
 }
 
-#Preview {
-    FirstTabBar()
+struct MyApp: App {
+    var body: some Scene {
+        WindowGroup {
+            Nuttri()
+        }
+    }
 }
