@@ -26,7 +26,7 @@ struct FirstTabBar: View {
                 .tabItem {
                     Image("saved")
                 }
-            Nuttri()
+            CalculatorNutrition()
                 .tabItem {
                     Image(systemName: "computer")
                 }
@@ -41,7 +41,7 @@ struct FirstTabBar: View {
 struct MyApp: App {
     var body: some Scene {
         WindowGroup {
-            Nuttri()
+            CalculatorNutrition()
         }
     }
 }

@@ -20,9 +20,9 @@
 		1858B25B2CD820D0005CF6F8 /* CalculatorCalories.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1858B25A2CD820D0005CF6F8 /* CalculatorCalories.swift */; };
 		1858B25D2CD820EF005CF6F8 /* CalculatorVeight.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1858B25C2CD820EF005CF6F8 /* CalculatorVeight.swift */; };
 		1858B25F2CD82100005CF6F8 /* Saved.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1858B25E2CD82100005CF6F8 /* Saved.swift */; };
-		1858B2612CD8210E005CF6F8 /* Nuttri.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1858B2602CD8210E005CF6F8 /* Nuttri.swift */; };
 		1858B2632CDA4916005CF6F8 /* PickerListStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1858B2622CDA4916005CF6F8 /* PickerListStyle.swift */; };
 		1858B2652CDA495C005CF6F8 /* TextFieldModifire.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1858B2642CDA495C005CF6F8 /* TextFieldModifire.swift */; };
+		1858B26A2CDA7037005CF6F8 /* CalculatorNutrition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1858B2692CDA7037005CF6F8 /* CalculatorNutrition.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,9 +40,9 @@
 		1858B25A2CD820D0005CF6F8 /* CalculatorCalories.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculatorCalories.swift; sourceTree = "<group>"; };
 		1858B25C2CD820EF005CF6F8 /* CalculatorVeight.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculatorVeight.swift; sourceTree = "<group>"; };
 		1858B25E2CD82100005CF6F8 /* Saved.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Saved.swift; sourceTree = "<group>"; };
-		1858B2602CD8210E005CF6F8 /* Nuttri.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Nuttri.swift; sourceTree = "<group>"; };
 		1858B2622CDA4916005CF6F8 /* PickerListStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerListStyle.swift; sourceTree = "<group>"; };
 		1858B2642CDA495C005CF6F8 /* TextFieldModifire.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldModifire.swift; sourceTree = "<group>"; };
+		1858B2692CDA7037005CF6F8 /* CalculatorNutrition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculatorNutrition.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,9 +101,9 @@
 				1858B2582CD81F77005CF6F8 /* FirstTabBar.swift */,
 				1858B25A2CD820D0005CF6F8 /* CalculatorCalories.swift */,
 				1858B25C2CD820EF005CF6F8 /* CalculatorVeight.swift */,
-				1858B2602CD8210E005CF6F8 /* Nuttri.swift */,
 				1858B25E2CD82100005CF6F8 /* Saved.swift */,
 				1858B2502CD81C21005CF6F8 /* Launch Screen.storyboard */,
+				1858B2692CDA7037005CF6F8 /* CalculatorNutrition.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -193,11 +193,11 @@
 				1858B25D2CD820EF005CF6F8 /* CalculatorVeight.swift in Sources */,
 				1858B2592CD81F77005CF6F8 /* FirstTabBar.swift in Sources */,
 				1858B2652CDA495C005CF6F8 /* TextFieldModifire.swift in Sources */,
+				1858B26A2CDA7037005CF6F8 /* CalculatorNutrition.swift in Sources */,
 				1858B25B2CD820D0005CF6F8 /* CalculatorCalories.swift in Sources */,
 				1858B2632CDA4916005CF6F8 /* PickerListStyle.swift in Sources */,
 				1858B2552CD81D33005CF6F8 /* TextStyle.swift in Sources */,
 				1858B2472CD81BF8005CF6F8 /* Persistence.swift in Sources */,
-				1858B2612CD8210E005CF6F8 /* Nuttri.swift in Sources */,
 				1858B2572CD81D4B005CF6F8 /* MyButtonStyle.swift in Sources */,
 				1858B25F2CD82100005CF6F8 /* Saved.swift in Sources */,
 				1858B24A2CD81BF8005CF6F8 /* Scales.xcdatamodeld in Sources */,
