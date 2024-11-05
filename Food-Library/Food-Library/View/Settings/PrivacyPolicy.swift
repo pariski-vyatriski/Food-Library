@@ -9,9 +9,22 @@ import SwiftUI
 
 struct PrivacyPolicy: View {
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        ZStack {
+            NavigationView {
+                GeometryReader { geometry in
+                    ScrollView {
+                        LazyVStack(spacing: 6) {
+                            VStack {
+
+                            }
+                        }.navigationTitle("Privacy Policy")
+                    }
+                }
+            }
+        }
     }
 }
+
 
 #Preview {
     PrivacyPolicy()

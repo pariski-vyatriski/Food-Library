@@ -28,12 +28,12 @@ struct FirstTabBar: View {
                 }
             CalculatorNutrition()
                 .tabItem {
-                    Image(systemName: "computer")
+                    Image(systemName: "magnifyingglass")
                 }
-            //            ViewController()
-            //                .tabItem {
-            //                    Image("saved")
-            //                }
+            Settings()
+                .tabItem {
+                    Image("settings")
+                }
         }
     }
 }

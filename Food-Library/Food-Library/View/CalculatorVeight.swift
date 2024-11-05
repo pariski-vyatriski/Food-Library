@@ -24,6 +24,16 @@ struct CalculatorVeight: View {
     }
     @State private var isClick = true
 
+    private var measurementParametr: [String] {
+        switch selectedParametr {
+        case .veight:
+            return QuanityTypeOfVeight.allCases.map { $0.rawValue}
+        case .volume:
+            return QuanityTypeOfVolume.allCases.map { $0.rawValue}
+        }
+    }
+
+    //MARK: - create visual part of screen
     var body: some View {
         ZStack {
             NavigationView {
@@ -43,7 +53,7 @@ struct CalculatorVeight: View {
 
                                 VStack(alignment: .leading) {
                                     Text("Product")
-                                        .font(.custom("SFPro-Bold", size: 18))
+                                        .textStyle()
                                     Picker("Animal", selection: $selectedProduct) {
                                         ForEach(Product.allCases) { product in
                                             Text(product.rawValue).tag(selectedProduct)
@@ -53,30 +63,32 @@ struct CalculatorVeight: View {
 
                                 VStack(alignment: .leading) {
                                     Text("Measurement Parametr")
-                                        .font(.custom("SFPro-Bold", size: 18))
-                                    Picker("Choose", selection: $selectedParametr) {
-                                        ForEach(SideOfTypeParametr.allCases, id: \.self) {
-                                            Text($0.rawValue).tag(selectedParametr)
+                                        .textStyle()
+                                    Picker("Product", selection: $selectedParametr) {
+                                        ForEach(SideOfTypeParametr.allCases) { product in
+                                            Text(product.rawValue).tag(product)
                                         }
-                                    }.frame(maxWidth: .infinity)
-                                        .background(.second)
-                                        .cornerRadius(9)
-                                        .pickerStyle(SegmentedPickerStyle())
+                                    }
+                                    .frame(maxWidth: .infinity)
+                                    .background(.second)
+                                    .cornerRadius(9)
+                                    .pickerStyle(SegmentedPickerStyle())
 
                                 }
 
                                 VStack(alignment: .leading) {
                                     Text("Quanity")
-                                        .font(.custom("SFPro-Bold", size: 18))
+                                        .textStyle()
                                     TextField("0", text: $quanity)
                                         .focused($focusedField, equals: .quanity)
                                         .keyboardType(.decimalPad)
                                         .textFieldModifier()
-                                    Picker("Animal", selection: $quanityTypeVeight) {
-                                        ForEach(QuanityTypeOfVeight.allCases) { quanitytypeveight in
-                                            Text(quanitytypeveight.rawValue).tag(quanitytypeveight)
+                                    Picker("Measurement", selection: $quanityTypeVeight) {
+                                        ForEach(measurementParametr, id: \.self) { measurement in
+                                            Text(measurement).tag(measurement)
                                         }
-                                    }.pickerListStyle()
+                                    }
+                                    .pickerListStyle()
                                 }.toolbar {
                                     ToolbarItem(placement: .keyboard) {
                                         Button("Done") {
@@ -87,7 +99,7 @@ struct CalculatorVeight: View {
 
                                 VStack(alignment: .leading) {
                                     Text("What to count into")
-                                        .font(.custom("SFPro-Bold", size: 18))
+                                        .textStyle()
                                     Picker("Animal", selection: $convertInto) {
                                         ForEach(ConvertInto.allCases) { convert in
                                             Text(convert.rawValue).tag(convertInto)
@@ -99,14 +111,14 @@ struct CalculatorVeight: View {
                                 HStack {
                                     VStack(alignment: .leading) {
                                         Text("=")
-                                            .font(.custom("=", size: 20))
+                                            .textStyle()
                                             .frame(alignment: .leading)
                                     }
                                     .frame(maxWidth: .infinity, alignment: .leading)
                                     .padding(1)
 
                                     Button(action: {
-                                       if isClick {
+                                        if isClick {
                                             addScales()
                                         }
                                         isImageOne.toggle()
@@ -142,6 +154,7 @@ struct CalculatorVeight: View {
             }
         }
     }
+    //MARK: - function to add favotite scales
     func addScales() {
         let newScales = Scales(context: viewContext)
         newScales.name = scalesName
@@ -152,52 +165,36 @@ struct CalculatorVeight: View {
             print("Error saving data: \(error.localizedDescription)")
         }
     }
-}
+    //MARK: - function to calculate result
+    func calculateResult() {
+        ///set the density of selected product
+        let productDensity: Double
+        switch selectedProduct {
+        case .cocoaPowder:
+            productDensity = 0.55
+        case .cream:
+            productDensity = 1.03
+        case .flour:
+            productDensity = 0.59
+        case .gelatin:
+            productDensity = 0.7
+        case .milk:
+            productDensity = 1.03
+        case .rice:
+            productDensity = 0.9
+        case .sourCream:
+            productDensity = 1.03
+        case .starch:
+            productDensity = 0.65
+        case .sugar:
+            productDensity = 0.85
+        case .water:
+            productDensity = 1.0
+        }
+        /// set to
 
-enum SideOfTypeParametr: String, CaseIterable, Identifiable {
-    case veight = "Veight"
-    case volue = "Volume"
-    var id: Self { self }
-}
+    }
 
-enum Product: String, CaseIterable, Identifiable {
-    case cocoaPowder = "Cocoa Powder"
-    case cream = "Cream"
-    case flour = "Flour"
-    case gelatin = "Gelatin (powder)"
-    case milk = "Milk"
-    case rice = "Rice (raw rice)"
-    case sourCream = "Sour cream"
-    case starch = "Starch"
-    case sugar = "Sugar (granulated)"
-    case water = "Water"
-    var id: Self { self }
-}
-
-enum QuanityTypeOfVeight: String, CaseIterable, Identifiable {
-    case gramVeight = "Gram"
-    case kilogramVeight = "Kilogram"
-    case ounceVeight = "Ounce"
-    case poundVeight = "Ib."
-    case litrVolume = "Litr"
-    case mililiterVolume = "Mililiter"
-    case glassVolume = "Glass 200 ml."
-    case tablespoonVolume = "Tablespoon"
-    case teaspoonVolume = "Teaspoon"
-    var id: Self { self }
-}
-
-enum ConvertInto: String, CaseIterable, Identifiable {
-    case gram = "Gram"
-    case kilogram = "Kilogram"
-    case liter = "Liter"
-    case mililiter = "Mililiter"
-    case glass = "Glass 200 ml"
-    case tablespoon = "Tablespoon"
-    case ounce = "Ounce"
-    case pound = "Pound"
-    case teaspoon = "Teaspoon"
-    var id: Self { self }
 }
 
 struct CalculatorVeight_Previews: PreviewProvider {

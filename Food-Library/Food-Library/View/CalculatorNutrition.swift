@@ -11,7 +11,7 @@ struct CalculatorNutrition: View {
     var body: some View {
         NavigationView {
             VStack {
-                TextField("Enter food item", text: $foodItem)
+                TextField("Enter product or ingredients of the dish", text: $foodItem)
                     .textFieldModifier()
                     .padding()
 
@@ -101,4 +101,5 @@ struct Nuttri_Previews: PreviewProvider {
         CalculatorNutrition()
     }
 }
+
 

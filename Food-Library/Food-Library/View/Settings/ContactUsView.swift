@@ -9,7 +9,19 @@ import SwiftUI
 
 struct ContactUsView: View {
     var body: some View {
-        Text("Hello, World!")
+        ZStack {
+            NavigationView {
+                GeometryReader { geometry in
+                    ScrollView {
+                        LazyVStack(spacing: 6) {
+                            VStack {
+                                Text("Email adress: FoodLibrary@gmail.com")
+                            }
+                        }.navigationTitle("Contact Us")
+                    }
+                }
+            }
+        }
     }
 }
 

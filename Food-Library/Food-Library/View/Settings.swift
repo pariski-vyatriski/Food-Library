@@ -8,8 +8,55 @@
 import SwiftUI
 
 struct Settings: View {
+    @State private var showingNextScreenOnSettings = false
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        ZStack {
+            NavigationView {
+                GeometryReader { geometry in
+                    ScrollView {
+                        LazyVStack(spacing: 6) {
+                            VStack {
+                                HStack(spacing: 16) {
+                                    Text("Contact Us")
+                                        .textStyle()
+                                    Spacer()
+                                    NavigationLink(destination: ContactUsView()) {
+                                        Image("arrow")
+                                    }
+                                }.padding(.bottom)
+                                HStack {
+                                    Text("Rate Us")
+                                        .textStyle()
+                                    Spacer()
+                                    NavigationLink(destination: RateUs()) {
+                                        Image("arrow")
+                                    }
+                                }.padding(.bottom)
+                                HStack {
+                                    Text("Privacy Policy")
+                                        .textStyle()
+                                    Spacer()
+                                    NavigationLink(destination: PrivacyPolicy()) {
+                                        Image("arrow")
+                                    }
+                                }.padding(.bottom)
+                                HStack {
+                                    Text("Term of Use")
+                                        .textStyle()
+                                    Spacer()
+                                    NavigationLink(destination: TermOfUse()) {
+                                        Image("arrow")
+                                    }
+                                }.padding(.bottom)
+                            }.padding(.top)
+                        }.navigationTitle("Settings")
+//                            .frame(minHeight: geometry.size.height)
+                            .frame(idealWidth: geometry.size.width)
+                            .padding(.horizontal, 26)
+                    }
+                }
+            }
+        }
     }
 }
 

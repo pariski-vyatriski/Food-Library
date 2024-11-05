@@ -10,7 +10,7 @@ import SwiftUI
 struct TextStyle: ViewModifier {
     func body(content: Content) -> some View {
         content
-            .font(Font.custom("STIXTwoText", size: 18))
+            .font(Font.custom("ArialUnicodeMS", size: 18))
     }
 }
 
@@ -36,7 +36,7 @@ extension View {
 struct NotMainText: ViewModifier {
     func body(content: Content) -> some View {
         content
-            .font(.custom("STIXTwoText_SemiBold", size: 20))
+            .font(.custom("ArialUnicodeMS", size: 20))
             .foregroundColor(.gray)
     }
 }

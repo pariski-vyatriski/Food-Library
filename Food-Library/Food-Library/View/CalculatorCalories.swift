@@ -27,7 +27,7 @@ struct CalculatorCalories: View {
         self.secondResult = secondResult
 //        self.result = result
     }
-
+    //MARK: - Visual part of code 
     var body: some View {
         ZStack {
             NavigationView {
@@ -135,7 +135,7 @@ struct CalculatorCalories: View {
             }
         }
     }
-    /// func calculate
+    //MARK: - Func to valculate calories
     private func calculateTotalCaloriesWithoutActivity() {
         guard let age = Double(textInputAge),
               let weight = Double(textInputWeight), // Исправлено
@@ -173,21 +173,21 @@ struct CalculatorCalories: View {
 //        print(secondResult ?? 0) // Печатаем результат
     }
 }
-
-enum SideOfTypeGender: String, CaseIterable, Identifiable {
-    var id: Self { self }
-    case maleGender = "Male"
-    case femaleGender = "Female"
-}
-
-enum Activity: String, CaseIterable, Identifiable {
-    case minimal = "Minimal"
-    case low = "Low"
-    case medium = "Medium"
-    case high = "High"
-    case veryHigh = "Very High"
-    var id: Self { self }
-}
+//MARK: - All enums
+//enum SideOfTypeGender: String, CaseIterable, Identifiable {
+//    var id: Self { self }
+//    case maleGender = "Male"
+//    case femaleGender = "Female"
+//}
+//
+//enum Activity: String, CaseIterable, Identifiable {
+//    case minimal = "Minimal"
+//    case low = "Low"
+//    case medium = "Medium"
+//    case high = "High"
+//    case veryHigh = "Very High"
+//    var id: Self { self }
+//}
 //
 //struct CalculatorCalories_Previews: PreviewProvider {
 //    static var previews: some View {
