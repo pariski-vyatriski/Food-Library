@@ -16,6 +16,7 @@ struct FisrtScreen: View {
                 .imageScale(.large)
                 .foregroundStyle(.tint)
             Text("Food Library")
+                .textStylemain()
 
             Rectangle()
                 .frame(width: 361, height: 0)

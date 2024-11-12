@@ -14,13 +14,11 @@ struct FirstTabBar: View {
             CalculatorVeight()
                 .tabItem {
                     Image("scales")
-
                 }
 
             CalculatorCalories()
                 .tabItem {
                     Image("calories")
-
                 }
             Saved()
                 .tabItem {

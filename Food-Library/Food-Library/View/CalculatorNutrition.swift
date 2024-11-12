@@ -27,6 +27,7 @@ struct CalculatorNutrition: View {
                     ProgressView("Loading...")
                 } else {
                     Text(nutritionInfo)
+                        .background(.second)
                         .padding()
                         .foregroundColor(.black)
                     if let errorMessage = errorMessage {
