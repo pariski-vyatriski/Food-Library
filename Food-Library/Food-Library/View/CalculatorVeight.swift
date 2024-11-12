@@ -21,7 +21,7 @@ struct CalculatorVeight: View {
     }
     @State private var isClick = true
     @State private var result: Float = 0.0
-    
+
     @State private var selectedParametr: MeasurementCategory = .weight
     @State private var weightType: QuantityTypeOfWeight = .gram
     @State private var volumeType: QuantityTypeOfVolume = .liter
@@ -119,7 +119,7 @@ struct CalculatorVeight: View {
 
                                 HStack {
                                     VStack(alignment: .leading) {
-                                        Text("= ")
+                                        Text("= \(result)")
                                             .textStyle()
                                             .frame(alignment: .leading)
                                     }
@@ -128,6 +128,7 @@ struct CalculatorVeight: View {
 
                                     Button(action: {
                                         if isClick {
+                                            calculateVeight()
                                             addScales()
                                         }
                                         isImageOne.toggle()
@@ -163,6 +164,7 @@ struct CalculatorVeight: View {
             }
         }
     }
+
     //MARK: - function to add favotite scales
     func addScales() {
         let newScales = Scales(context: viewContext)
@@ -174,12 +176,101 @@ struct CalculatorVeight: View {
             print("Error saving data: \(error.localizedDescription)")
         }
     }
-}
 
+    //MARK: - function to calcualate total veight
 
-struct CalculatorVeight_Previews: PreviewProvider {
-    static var previews: some View {
-        CalculatorVeight()
+    func calculateVeight() {
+        var calculationResult: Float = 0.0
+        let productDensity: Float
+        var totalWeight: Float = 0.0
+        var totalVolume: Float = 0.0
+
+        // Определение плотности для продуктов
+        switch selectedProduct {
+        case .cocoaPowder:
+            productDensity = 0.65
+        case .cream:
+            productDensity = 1.03
+        case .flour:
+            productDensity = 0.7
+        case .gelatin:
+            productDensity = 1.3
+        case .milk:
+            productDensity = 1.03
+        case .rice:
+            productDensity = 0.78
+        case .sourCream:
+            productDensity = 1.05
+        case .starch:
+            productDensity = 0.65
+        case .sugar:
+            productDensity = 0.9
+        case .water:
+            productDensity = 1.0
+        }
+
+        // Проверка введённых данных
+        guard let quantityValue = Float(quanity), quantityValue > 0 else {
+            print("Ошибка: Некорректное количество: \(quanity)")
+            return
+        }
+
+        switch weightType {
+        case .gram:
+            totalWeight = quantityValue / 1000
+        case .kilogram:
+            totalWeight = quantityValue
+        case .ounce:
+            totalWeight = quantityValue * 0.0283495
+        case .pound:
+            totalWeight = quantityValue * 0.453592
+        }
+
+        print("totalWeight after conversion: \(totalWeight) kg")
+
+        // Если выбран параметр "Масса", то вычисляем объём
+        if selectedParametr == .weight {
+            totalVolume = totalWeight / productDensity  // Переводим массу в объём (литры)
+            print("totalVolume after weight-to-volume conversion: \(totalVolume) liters")
+        } else if selectedParametr == .volume {
+            totalVolume = quantityValue
+            totalWeight = totalVolume * productDensity  // Переводим объём в массу
+            print("totalWeight after volume-to-weight conversion: \(totalWeight) kg")
+        }
+
+        if totalVolume == 0 {
+            print("Ошибка: Нулевой объём! Проверьте введённые данные.")
+            return
+        }
+
+        switch convertInto {
+        case .gram:
+            calculationResult = totalWeight * 1000
+        case .kilogram:
+            calculationResult = totalWeight
+        case .liter:
+            calculationResult = totalVolume
+        case .mililiter:
+            calculationResult = totalVolume * 1000
+        case .glass:
+            calculationResult = totalVolume * 4.22675
+        case .tablespoon:
+            calculationResult = totalVolume * 67.628
+        case .ounce:
+            calculationResult = totalVolume * 33.814
+        case .pound:
+            calculationResult = totalWeight * 2.20462
+        case .teaspoon:
+            calculationResult = totalVolume * 202.88
+        }
+
+        print("calculationResult: \(calculationResult)")
+
+        // Обновление результата
+        DispatchQueue.main.async {
+            self.result = calculationResult
+        }
     }
-}
 
+
+}
