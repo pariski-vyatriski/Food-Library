@@ -41,7 +41,7 @@ struct Saved: View {
             }
             .alert("Add Scales", isPresented: $isAlertModalPresent) {
                 TextField("Type of product", text: $scalesNameInput)
-                TextField("Enter the valueFoodLibrarySwiftUi", text: $scalesValueInput)
+                TextField("Enter the value", text: $scalesValueInput)
                 Button("OK", action: addScales)
                 Button("Cancel", role: .cancel, action: cleanupInputs)
             }

@@ -10,6 +10,7 @@ struct CalculatorVeight: View {
     @State private var isImageOne: Bool = true
     @FocusState private var focusedField: Field?
     @State private var scalesName: String = ""
+    @State private var scalesValue: String = ""
     @Environment(\.managedObjectContext) private var viewContext
     private enum Field: Int, CaseIterable {
         case quanity
@@ -175,13 +176,27 @@ struct CalculatorVeight: View {
             }
         }
     }
-
-    //MARK: - function to add favotite scales
+    //MARK: - func to add favorite scaled to coredata
     func addScales() {
+
+        let productName = selectedProduct.rawValue
+        let quantityText = quanity
+        let weightTypeText = weightType.rawValue
+        let volumeTypeText = volumeType.rawValue
+        let resultSave = String(result)
+        let conversionTypeText = convertInto.rawValue
+
+        let calculationDescription = "Product: \(productName)"
+        let resultText = "\(quantityText) \(weightTypeText) = \(resultSave) \(conversionTypeText)"
+
+
         let newScales = Scales(context: viewContext)
-        newScales.name = scalesName
+        newScales.name = calculationDescription
+        newScales.value = resultText
+
         do {
             try viewContext.save()
+            print("Scales saved successfully with description")
         } catch {
             print("Error saving data: \(error.localizedDescription)")
         }
@@ -280,11 +295,11 @@ struct CalculatorVeight: View {
             print("Result updated: \(calculationResult)")
         }
     }
-
+//MARK: - func to validate value
     private func handleQuanityChange() {
         guard let quantityValue = Float(quanity), quantityValue > 0 else {
             isValidInput = false
-            result = 0.0  // Сбрасываем результат
+            result = 0.0
             return
         }
         isValidInput = true
