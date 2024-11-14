@@ -79,7 +79,7 @@ struct CalculatorCalories: View {
                                             Text("Height")
                                             TextField("Tape your height", text: $textInputHeight)
                                                 .focused($focusedField, equals: .textInputHeight)
-                                                .keyboardType(.decimalPad)
+                                                .keyboardType(.numberPad)
                                                 .textFieldModifier()
                                         }
                                         VStack(alignment: .leading) {
@@ -87,7 +87,7 @@ struct CalculatorCalories: View {
                                                 .font(.custom("SFPro-Bold", size: 18))
                                             TextField("Tape your weight", text: $textInputWeight) // Corrected spelling
                                                 .focused($focusedField, equals: .textInputWeight)
-                                                .keyboardType(.decimalPad)
+                                                .keyboardType(.numberPad)
                                                 .textFieldModifier()
                                         }
                                     }.toolbar {

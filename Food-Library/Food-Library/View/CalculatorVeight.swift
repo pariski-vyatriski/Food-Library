@@ -2,7 +2,6 @@ import SwiftUI
 import CoreData
 
 struct CalculatorVeight: View {
-    @State private var isValidInput = false
     @State private var countInto = ""
     @State private var textInput = ""
     @State private var quanity = ""
@@ -17,11 +16,12 @@ struct CalculatorVeight: View {
     }
     @State private var isClick = true
     @State private var result: Float = 0.0
+    @State private var isValidInput = false
 
+    //for choose between volume and veight
     @State private var selectedParametr: MeasurementCategory = .weight
     @State private var weightType: QuantityTypeOfWeight = .gram
     @State private var volumeType: QuantityTypeOfVolume = .liter
-
     private var measurementParametr: [String] {
         switch selectedParametr {
         case .weight:
@@ -29,19 +29,6 @@ struct CalculatorVeight: View {
         case .volume:
             return QuantityTypeOfVolume.allCases.map { $0.rawValue }
         }
-    }
-    init(result: Float = 0.0) {
-        _result = State(initialValue: result)
-    }
-
-    private func handleQuanityChange() {
-        // Проверка, что поле заполнено и корректно
-        guard let quantityValue = Float(quanity), quantityValue > 0 else {
-            isValidInput = false  // Если ввод некорректен, флаг становиться false
-            return
-        }
-        isValidInput = true  // Если ввод корректен, флаг становиться true
-        calculateVeight()    // Запуск вычислений
     }
 
     //MARK: - create visual part of screen
@@ -70,7 +57,7 @@ struct CalculatorVeight: View {
                                     }
                                     .pickerListStyle()
                                     .onChange(of: selectedProduct) { _ in
-                                        calculateVeight()  // Пересчитываем результат при изменении продукта
+                                        calculateVeight()
                                     }
                                 }
 
@@ -87,7 +74,7 @@ struct CalculatorVeight: View {
                                     .background(Color.second)
                                     .cornerRadius(9)
                                     .onChange(of: selectedParametr) { _ in
-                                        calculateVeight()  // Пересчитываем результат при изменении параметра
+                                        calculateVeight()
                                     }
                                 }
 
@@ -95,18 +82,12 @@ struct CalculatorVeight: View {
                                     Text("Quanity")
                                         .textStyle()
                                     TextField("0", text: $quanity)
-                                        .keyboardType(.decimalPad)
+                                        .keyboardType(.numberPad)
                                         .textFieldModifier()
                                         .focused($focusedField, equals: .quanity)
-                                        .onChange(of: quanity) { _ in
-                                            handleQuanityChange()  // Пересчитываем результат при изменении количества
+                                        .onChange(of: quanity) { newValue in
+                                            handleQuanityChange()
                                         }
-
-                                    if !isValidInput {
-                                        Text("Ошибка: Пожалуйста, введите корректное количество!")
-                                            .foregroundColor(.red)
-                                            .font(.footnote)
-                                    }
 
                                     if selectedParametr == .weight {
                                         Picker("Weight", selection: $weightType) {
@@ -116,7 +97,7 @@ struct CalculatorVeight: View {
                                         }
                                         .pickerListStyle()
                                         .onChange(of: weightType) { _ in
-                                            calculateVeight()  // Пересчитываем результат при изменении типа веса
+                                            calculateVeight()
                                         }
                                     } else {
                                         Picker("Volume", selection: $volumeType) {
@@ -125,8 +106,9 @@ struct CalculatorVeight: View {
                                             }
                                         }
                                         .pickerListStyle()
-                                        .onChange(of: volumeType) { _ in
-                                            calculateVeight()  // Пересчитываем результат при изменении типа объема
+                                        .onChange(of: volumeType) { newValue in
+                                            print("Volume type changed: \(newValue)")
+                                            calculateVeight()
                                         }
                                     }
                                 }.toolbar {
@@ -147,7 +129,7 @@ struct CalculatorVeight: View {
                                     }
                                     .pickerListStyle()
                                     .onChange(of: convertInto) { _ in
-                                        calculateVeight()  // Пересчитываем результат при изменении единицы измерения
+                                        calculateVeight()
                                     }
                                 }
 
@@ -207,12 +189,12 @@ struct CalculatorVeight: View {
 
     //MARK: - function to calculate total weight
     func calculateVeight() {
+
         var calculationResult: Float = 0.0
         let productDensity: Float
         var totalWeight: Float = 0.0
         var totalVolume: Float = 0.0
 
-        // Define product density
         switch selectedProduct {
         case .cocoaPowder:
             productDensity = 0.65
@@ -236,13 +218,12 @@ struct CalculatorVeight: View {
             productDensity = 1.0
         }
 
-        // Handle input validation and calculation
+        // Проверка правильности введённого значения
         guard let quantityValue = Float(quanity), quantityValue > 0 else {
             print("Ошибка: Некорректное количество: \(quanity)")
             return
         }
 
-        // Perform weight conversion
         switch weightType {
         case .gram:
             totalWeight = quantityValue / 1000
@@ -254,21 +235,25 @@ struct CalculatorVeight: View {
             totalWeight = quantityValue * 0.453592
         }
 
-        // Calculate volume or weight
+        switch volumeType {
+        case .liter:
+            totalVolume = quantityValue
+        case .milliliter:
+            totalVolume = quantityValue / 1000
+        case .glass:
+            totalVolume = quantityValue * 0.24
+        case .tablespoon:
+            totalVolume = quantityValue * 15 / 1000
+        case .teaspoon:
+            totalVolume = quantityValue * 5 / 1000
+        }
+
         if selectedParametr == .weight {
             totalVolume = totalWeight / productDensity
         } else if selectedParametr == .volume {
-            totalVolume = quantityValue
             totalWeight = totalVolume * productDensity
         }
 
-        // Ensure non-zero volume
-        if totalVolume == 0 {
-            print("Ошибка: Нулевой объём! Проверьте введённые данные.")
-            return
-        }
-
-        // Final conversion to the selected unit
         switch convertInto {
         case .gram:
             calculationResult = totalWeight * 1000
@@ -290,9 +275,20 @@ struct CalculatorVeight: View {
             calculationResult = totalVolume * 202.88
         }
 
-        // Update result
         DispatchQueue.main.async {
             self.result = calculationResult
+            print("Result updated: \(calculationResult)")
         }
     }
+
+    private func handleQuanityChange() {
+        guard let quantityValue = Float(quanity), quantityValue > 0 else {
+            isValidInput = false
+            result = 0.0  // Сбрасываем результат
+            return
+        }
+        isValidInput = true
+        calculateVeight()
+    }
+
 }

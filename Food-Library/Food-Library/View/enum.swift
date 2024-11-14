@@ -62,6 +62,7 @@ enum QuantityTypeOfVolume: String, CaseIterable, Identifiable {
 }
 
 
+
 //MARK: - enum for CalculatorCalories
 enum SideOfTypeGender: String, CaseIterable, Identifiable {
     var id: Self { self }
