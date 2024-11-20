@@ -22,19 +22,21 @@ struct FisrtScreen: View {
                 .frame(width: 361, height: 0)
 
             VStack {
-                Text("Some text about funcionality and goodies of our app " )
+                Text("No scales? Calculator converts gr. to ml. for better cooking" )
             }.notMainText()
                 .frame(width: 249)
                 .lineLimit(3)
                 .multilineTextAlignment(.center)
             Button(action: {
                 self.showingNextScreen.toggle()
-            }) {
+            }, label: {
                 Text("Continue")
                     .font(.custom("SFPro-Bold", size: 18))
                     .padding(EdgeInsets(top: 15, leading: 140, bottom: 15, trailing: 140))
-            } .fullScreenCover(isPresented: $showingNextScreen) {
-                FirstTabBar(selectedIndex: $showingNextScreen)}
+            })
+            .fullScreenCover(isPresented: $showingNextScreen) {
+                SecondScreen()
+            }
             .buttonStyle(MyButtonStyle())
         }
     }

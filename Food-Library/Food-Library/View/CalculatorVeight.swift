@@ -18,8 +18,6 @@ struct CalculatorVeight: View {
     @State private var isClick = true
     @State private var result: Float = 0.0
     @State private var isValidInput = false
-
-    //for choose between volume and veight
     @State private var selectedParametr: MeasurementCategory = .weight
     @State private var weightType: QuantityTypeOfWeight = .gram
     @State private var volumeType: QuantityTypeOfVolume = .liter
@@ -31,8 +29,7 @@ struct CalculatorVeight: View {
             return QuantityTypeOfVolume.allCases.map { $0.rawValue }
         }
     }
-
-    //MARK: - create visual part of screen
+    // MARK: - Create visual part of screen
     var body: some View {
         ZStack {
             NavigationView {
@@ -43,7 +40,7 @@ struct CalculatorVeight: View {
                                 Image(.imageTwo)
                                     .resizable()
                                     .scaledToFit()
-                                    .frame(maxWidth: .infinity, maxHeight:165)
+                                    .frame(maxWidth: .infinity, maxHeight: 165)
                                     .clipped()
                             }
                             VStack(alignment: .leading, spacing: 15) {
@@ -57,7 +54,7 @@ struct CalculatorVeight: View {
                                         }
                                     }
                                     .pickerListStyle()
-                                    .onChange(of: selectedProduct) { _ in
+                                    .onChange(of: selectedProduct) {
                                         calculateVeight()
                                     }
                                 }
@@ -74,19 +71,19 @@ struct CalculatorVeight: View {
                                     .frame(maxWidth: .infinity)
                                     .background(Color.second)
                                     .cornerRadius(9)
-                                    .onChange(of: selectedParametr) { _ in
+                                    .onChange(of: selectedParametr) {
                                         calculateVeight()
                                     }
                                 }
 
                                 VStack(alignment: .leading) {
-                                    Text("Quanity")
+                                    Text("Quantity")
                                         .textStyle()
                                     TextField("0", text: $quanity)
                                         .keyboardType(.numberPad)
                                         .textFieldModifier()
                                         .focused($focusedField, equals: .quanity)
-                                        .onChange(of: quanity) { newValue in
+                                        .onChange(of: quanity) {
                                             handleQuanityChange()
                                         }
 
@@ -97,7 +94,7 @@ struct CalculatorVeight: View {
                                             }
                                         }
                                         .pickerListStyle()
-                                        .onChange(of: weightType) { _ in
+                                        .onChange(of: weightType) {
                                             calculateVeight()
                                         }
                                     } else {
@@ -107,19 +104,11 @@ struct CalculatorVeight: View {
                                             }
                                         }
                                         .pickerListStyle()
-                                        .onChange(of: volumeType) { newValue in
-                                            print("Volume type changed: \(newValue)")
+                                        .onChange(of: volumeType) {
                                             calculateVeight()
                                         }
                                     }
-                                }.toolbar {
-                                    ToolbarItem(placement: .keyboard) {
-                                        Button("Done") {
-                                            focusedField = nil
-                                        }
-                                    }
                                 }
-
                                 VStack(alignment: .leading) {
                                     Text("What to count into")
                                         .textStyle()
@@ -129,7 +118,7 @@ struct CalculatorVeight: View {
                                         }
                                     }
                                     .pickerListStyle()
-                                    .onChange(of: convertInto) { _ in
+                                    .onChange(of: convertInto) {
                                         calculateVeight()
                                     }
                                 }
@@ -149,46 +138,143 @@ struct CalculatorVeight: View {
                                         }
                                         isImageOne.toggle()
                                         isClick.toggle()
-                                    }) {
+                                    }, label: {
                                         Image(isImageOne ? "star" : "two")
                                             .frame(width: 8, height: 9)
                                             .padding()
                                             .cornerRadius(8)
-                                    }
-                                }.frame(maxWidth: .infinity)
-                                    .padding()
-                                    .background(
-                                        RoundedRectangle(cornerRadius: 10)
-                                            .stroke(style: StrokeStyle(lineWidth: 1, dash: [4]))
-                                            .foregroundColor(.gray)
-                                    )
-                                VStack(alignment: .leading) {
-                                    Rectangle()
-                                        .frame(width: 361, height: 0)
+                                    })
                                 }
+                                .frame(maxWidth: .infinity)
+                                .padding()
+                                .background(
+                                    RoundedRectangle(cornerRadius: 10)
+                                        .stroke(style: StrokeStyle(lineWidth: 1, dash: [4]))
+                                        .foregroundColor(.gray)
+                                )
+
+                                Rectangle()
+                                    .frame(width: 361, height: 0)
                             }
-                        }.navigationTitle("Scales")
-                            .frame(minHeight: geometry.size.height)
-                            .frame(idealWidth: geometry.size.width)
-                            .padding(.horizontal, 16)
-                    }
+                        }
+                        .navigationTitle("Scales")
+                        .frame(minHeight: geometry.size.height)
+                        .frame(idealWidth: geometry.size.width)
+                        .padding(.horizontal, 16)
+                    }.scrollDismissesKeyboard(.immediately)
                 }
             }
         }
     }
-    //MARK: - func to add favorite scaled to coredata
-    func addScales() {
+    // MARK: - Function to calculate product density
+    func getProductDensity(for product: Product) -> Float {
+        switch product {
+        case .cocoaPowder: return 0.65
+        case .cream: return 1.03
+        case .flour: return 0.7
+        case .gelatin: return 1.3
+        case .milk: return 1.03
+        case .rice: return 0.78
+        case .sourCream: return 1.05
+        case .starch: return 0.65
+        case .sugar: return 0.9
+        case .water: return 1.0
+        }
+    }
+    // MARK: - Function to calculate weight
+    func calculateWeight(quantity: Float, weightType: QuantityTypeOfWeight) -> Float {
+        switch weightType {
+        case .gram: return quantity / 1000
+        case .kilogram: return quantity
+        case .ounce: return quantity * 0.0283495
+        case .pound: return quantity * 0.453592
+        }
+    }
+    // MARK: - Function to calculate volume
+    func calculateVolume(quantity: Float, volumeType: QuantityTypeOfVolume) -> Float {
+        switch volumeType {
+        case .liter: return quantity
+        case .milliliter: return quantity / 1000
+        case .glass: return quantity * 0.24
+        case .tablespoon: return quantity * 15 / 1000
+        case .teaspoon: return quantity * 5 / 1000
+        }
+    }
+    // MARK: - Function to convert units
+    func convertToDesiredUnits(weight: Float, volume: Float, convertInto: ConvertInto) -> Float {
+        switch convertInto {
+        case .gram: return weight * 1000
+        case .kilogram: return weight
+        case .liter: return volume
+        case .mililiter: return volume * 1000
+        case .glass: return volume * 4.22675
+        case .tablespoon: return volume * 67.628
+        case .ounce: return volume * 33.814
+        case .pound: return weight * 2.20462
+        case .teaspoon: return volume * 202.88
+        }
+    }
+    // MARK: - Function to calculate weight and volume
+    func calculateVeight() {
 
+        let productDensity = getProductDensity(for: selectedProduct)
+        guard let quantityValue = Float(quanity), quantityValue > 0 else {
+            print("Ошибка: Некорректное количество: \(quanity)")
+            return
+        }
+
+        var totalWeight: Float = 0.0
+        var totalVolume: Float = 0.0
+
+        if selectedParametr == .weight {
+            totalWeight = calculateWeight(quantity: quantityValue, weightType: weightType)
+            totalVolume = totalWeight / productDensity
+        } else if selectedParametr == .volume {
+            totalVolume = calculateVolume(quantity: quantityValue, volumeType: volumeType)
+            totalWeight = totalVolume * productDensity
+        }
+
+        let calculationResult = convertToDesiredUnits(
+            weight: totalWeight,
+            volume: totalVolume,
+            convertInto: convertInto
+        )
+
+        DispatchQueue.main.async {
+            self.result = calculationResult
+            print("Result updated: \(calculationResult)")
+        }
+    }
+
+    // MARK: - Function to validate quantity input
+    private func handleQuanityChange() {
+        guard let quantityValue = Float(quanity), quantityValue > 0 else {
+            isValidInput = false
+            result = 0.0
+            return
+        }
+        isValidInput = true
+        calculateVeight()
+    }
+}
+
+extension CalculatorVeight {
+    // MARK: - Function to add favorite scales to CoreData
+    func addScales() {
         let productName = selectedProduct.rawValue
         let quantityText = quanity
         let weightTypeText = weightType.rawValue
         let volumeTypeText = volumeType.rawValue
         let resultSave = String(result)
         let conversionTypeText = convertInto.rawValue
+        var resultText: String
 
         let calculationDescription = "Product: \(productName)"
-        let resultText = "\(quantityText) \(weightTypeText) = \(resultSave) \(conversionTypeText)"
-
+        if selectedParametr == .weight {
+            resultText = "\(quantityText) \(weightTypeText) = \(resultSave) \(conversionTypeText)"
+        } else {
+            resultText = "\(quantityText) \(volumeTypeText) = \(resultSave) \(conversionTypeText)"
+        }
 
         let newScales = Scales(context: viewContext)
         newScales.name = calculationDescription
@@ -201,109 +287,4 @@ struct CalculatorVeight: View {
             print("Error saving data: \(error.localizedDescription)")
         }
     }
-
-    //MARK: - function to calculate total weight
-    func calculateVeight() {
-
-        var calculationResult: Float = 0.0
-        let productDensity: Float
-        var totalWeight: Float = 0.0
-        var totalVolume: Float = 0.0
-
-        switch selectedProduct {
-        case .cocoaPowder:
-            productDensity = 0.65
-        case .cream:
-            productDensity = 1.03
-        case .flour:
-            productDensity = 0.7
-        case .gelatin:
-            productDensity = 1.3
-        case .milk:
-            productDensity = 1.03
-        case .rice:
-            productDensity = 0.78
-        case .sourCream:
-            productDensity = 1.05
-        case .starch:
-            productDensity = 0.65
-        case .sugar:
-            productDensity = 0.9
-        case .water:
-            productDensity = 1.0
-        }
-
-        // Проверка правильности введённого значения
-        guard let quantityValue = Float(quanity), quantityValue > 0 else {
-            print("Ошибка: Некорректное количество: \(quanity)")
-            return
-        }
-
-        switch weightType {
-        case .gram:
-            totalWeight = quantityValue / 1000
-        case .kilogram:
-            totalWeight = quantityValue
-        case .ounce:
-            totalWeight = quantityValue * 0.0283495
-        case .pound:
-            totalWeight = quantityValue * 0.453592
-        }
-
-        switch volumeType {
-        case .liter:
-            totalVolume = quantityValue
-        case .milliliter:
-            totalVolume = quantityValue / 1000
-        case .glass:
-            totalVolume = quantityValue * 0.24
-        case .tablespoon:
-            totalVolume = quantityValue * 15 / 1000
-        case .teaspoon:
-            totalVolume = quantityValue * 5 / 1000
-        }
-
-        if selectedParametr == .weight {
-            totalVolume = totalWeight / productDensity
-        } else if selectedParametr == .volume {
-            totalWeight = totalVolume * productDensity
-        }
-
-        switch convertInto {
-        case .gram:
-            calculationResult = totalWeight * 1000
-        case .kilogram:
-            calculationResult = totalWeight
-        case .liter:
-            calculationResult = totalVolume
-        case .mililiter:
-            calculationResult = totalVolume * 1000
-        case .glass:
-            calculationResult = totalVolume * 4.22675
-        case .tablespoon:
-            calculationResult = totalVolume * 67.628
-        case .ounce:
-            calculationResult = totalVolume * 33.814
-        case .pound:
-            calculationResult = totalWeight * 2.20462
-        case .teaspoon:
-            calculationResult = totalVolume * 202.88
-        }
-
-        DispatchQueue.main.async {
-            self.result = calculationResult
-            print("Result updated: \(calculationResult)")
-        }
-    }
-//MARK: - func to validate value
-    private func handleQuanityChange() {
-        guard let quantityValue = Float(quanity), quantityValue > 0 else {
-            isValidInput = false
-            result = 0.0
-            return
-        }
-        isValidInput = true
-        calculateVeight()
-    }
-
 }

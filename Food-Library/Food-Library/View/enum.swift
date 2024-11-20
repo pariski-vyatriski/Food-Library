@@ -7,9 +7,7 @@
 
 import SwiftUI
 
-//MARK: - enum for CalculatorVeight
-
-
+// MARK: - enum for CalculatorVeight
 enum Product: String, CaseIterable, Identifiable {
     case cocoaPowder = "Cocoa Powder"
     case cream = "Cream"
@@ -23,7 +21,6 @@ enum Product: String, CaseIterable, Identifiable {
     case water = "Water"
     var id: Self { self }
 }
-
 
 enum ConvertInto: String, CaseIterable, Identifiable {
     case gram = "Gram"
@@ -60,10 +57,7 @@ enum QuantityTypeOfVolume: String, CaseIterable, Identifiable {
     case teaspoon = "Teaspoon"
     var id: Self { self }
 }
-
-
-
-//MARK: - enum for CalculatorCalories
+// MARK: - enum for CalculatorCalories
 enum SideOfTypeGender: String, CaseIterable, Identifiable {
     var id: Self { self }
     case maleGender = "Male"

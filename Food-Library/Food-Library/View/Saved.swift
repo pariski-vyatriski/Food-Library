@@ -10,7 +10,11 @@ import CoreData
 
 struct Saved: View {
     @Environment(\.managedObjectContext) var moc
-    @FetchRequest(entity: Scales.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \Scales.name, ascending: true)]) var scales: FetchedResults<Scales>
+    @FetchRequest(
+        entity: Scales.entity(),
+        sortDescriptors: [NSSortDescriptor(keyPath: \Scales.name, ascending: true)
+        ]
+    ) var scales: FetchedResults<Scales>
     @State private var isAlertModalPresent = false
     @State private var scalesNameInput = ""
     @State private var scalesValueInput = ""
@@ -34,9 +38,9 @@ struct Saved: View {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button(action: {
                         isAlertModalPresent.toggle()
-                    }) {
+                    }, label: {
                         Image(systemName: "plus")
-                    }
+                    })
                 }
             }
             .alert("Add Scales", isPresented: $isAlertModalPresent) {

@@ -1,36 +1,63 @@
-//
-//  FirstTabBar.swift
-//  FoodLibrarySwiftUi
-//
-//  Created by apple on 27.10.24.
-//
-
 import SwiftUI
 
 struct FirstTabBar: View {
-    @Binding var selectedIndex: Bool
+    @State private var isImageVeightActive = false
+    @State private var isImageCaloriesActive = false
+    @State private var isImageSavedActive = false
+    @State private var isImageNutritionActive = false
+    @State private var isImageSettingsActive = false
+
     var body: some View {
         TabView {
             CalculatorVeight()
                 .tabItem {
-                    Image("scales")
+                    Image(isImageVeightActive ? "scalesActive" : "scales")
                 }
-
+                .onAppear {
+                    isImageVeightActive = true
+                }
+                .onDisappear {
+                    isImageVeightActive = false
+                }
             CalculatorCalories()
                 .tabItem {
-                    Image("calories")
+                    Image(isImageCaloriesActive ? "caloriesActive" : "calories")
+                }
+                .onAppear {
+                    isImageCaloriesActive = true
+                }
+                .onDisappear {
+                    isImageCaloriesActive = false
                 }
             Saved()
                 .tabItem {
-                    Image("saved")
+                    Image(isImageSavedActive ? "savedActive" : "saved")
+                }
+                .onAppear {
+                    isImageSavedActive = true
+                }
+                .onDisappear {
+                    isImageSavedActive = false
                 }
             CalculatorNutrition()
                 .tabItem {
-                    Image(systemName: "magnifyingglass")
+                    Image(isImageNutritionActive ? "nutritionActive" : "nutrition")
+                }
+                .onAppear {
+                    isImageNutritionActive = true
+                }
+                .onDisappear {
+                    isImageNutritionActive = false
                 }
             Settings()
                 .tabItem {
-                    Image("settings")
+                    Image(isImageSettingsActive ? "settingsActive" : "settings")
+                }
+                .onAppear {
+                    isImageSettingsActive = true
+                }
+                .onDisappear {
+                    isImageSettingsActive = false
                 }
         }
     }
@@ -39,7 +66,7 @@ struct FirstTabBar: View {
 struct MyApp: App {
     var body: some Scene {
         WindowGroup {
-            CalculatorNutrition()
+            FirstTabBar()
         }
     }
 }

@@ -11,20 +11,17 @@ struct PrivacyPolicy: View {
     var body: some View {
         ZStack {
             NavigationView {
-                GeometryReader { geometry in
-                    ScrollView {
-                        LazyVStack(spacing: 6) {
-                            VStack {
-
-                            }
-                        }.navigationTitle("Privacy Policy")
-                    }
+                ScrollView {
+                    LazyVStack(spacing: 6) {
+                        VStack {
+                            Text("Bububu")
+                        }
+                    }.navigationTitle("Privacy Policy")
                 }
             }
         }
     }
 }
-
 
 #Preview {
     PrivacyPolicy()

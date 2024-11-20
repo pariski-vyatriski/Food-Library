@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import MessageUI
 
 struct Settings: View {
     @State private var showingNextScreenOnSettings = false
@@ -50,7 +51,7 @@ struct Settings: View {
                                 }.padding(.bottom)
                             }.padding(.top)
                         }.navigationTitle("Settings")
-//                            .frame(minHeight: geometry.size.height)
+                        //                            .frame(minHeight: geometry.size.height)
                             .frame(idealWidth: geometry.size.width)
                             .padding(.horizontal, 26)
                     }
@@ -58,8 +59,4 @@ struct Settings: View {
             }
         }
     }
-}
-
-#Preview {
-    Settings()
 }

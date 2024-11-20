@@ -11,14 +11,12 @@ struct RateUs: View {
     var body: some View {
         ZStack {
             NavigationView {
-                GeometryReader { geometry in
-                    ScrollView {
-                        LazyVStack(spacing: 6) {
-                            VStack {
-
-                            }
-                        }.navigationTitle("Rate Us")
-                    }
+                ScrollView {
+                    LazyVStack(spacing: 6) {
+                        VStack {
+                            Text("Bububu")
+                        }
+                    }.navigationTitle("Rate Us")
                 }
             }
         }

@@ -11,14 +11,14 @@ struct TermOfUse: View {
     var body: some View {
         ZStack {
             NavigationView {
-                GeometryReader { geometry in
-                    ScrollView {
-                        LazyVStack(spacing: 6) {
-                            VStack {
-
-                            }
-                        }.navigationTitle("Term Of Use")
-                    }
+                ScrollView {
+                    LazyVStack(spacing: 6) {
+                        VStack {
+                            Text("1. Introduction")
+                            Spacer()
+                            Text("Bla-bla-bla")
+                        }
+                    }.navigationTitle("Term Of Use")
                 }
             }
         }

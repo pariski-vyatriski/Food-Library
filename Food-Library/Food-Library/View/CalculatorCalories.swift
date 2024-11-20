@@ -4,30 +4,28 @@ struct CalculatorCalories: View {
     private enum Field: Int, CaseIterable {
         case textInputAge, textInputHeight, textInputWeight
     }
-///enter and choose the information
+/// enter and choose the information
     @State private var selectedGender: SideOfTypeGender = .maleGender
     @State private var textInputActivity = ""
     @State private var textInputAge = ""
     @State private var textInputHeight = ""
     @State private var textInputWeight = ""
     @State private var selectedActivity = Activity.minimal
-    /// how counting
-//    @State private var result: Float! = 0
+    /// for counting
     @State private var firstResult: Float! = 0
     @State private var secondResult: Int! = 0
     @State private var secondResultSave: Int! = 0
     @State private var secondResultMore: Int! = 0
     @State private var veightMaintence: Float! = 0
-    ///other
+    /// other
     @State private var isTextVisible: Bool = false
     @FocusState private var focusedField: Field!
 
     init(firstResult: Float = 0, secondResult: Int = 0, secondResultSave: Int = 0, secondResultMore: Int = 0) {
         self.firstResult = firstResult
         self.secondResult = secondResult
-//        self.result = result
     }
-    //MARK: - Visual part of code 
+    // MARK: - Visual part of code
     var body: some View {
         ZStack {
             NavigationView {
@@ -37,8 +35,8 @@ struct CalculatorCalories: View {
                             VStack {
                                 Image(.image3)
                                     .resizable()
-                                    .scaledToFit() // Сохраняет пропорции изображения
-                                    .frame(maxWidth: .infinity, maxHeight:150) // Устанавливает максимальную ширину и высоту
+                                    .scaledToFit()
+                                    .frame(maxWidth: .infinity, maxHeight: 150)
                                     .clipped()
                             }
                             VStack(alignment: .leading, spacing: 15) {
@@ -90,12 +88,6 @@ struct CalculatorCalories: View {
                                                 .keyboardType(.numberPad)
                                                 .textFieldModifier()
                                         }
-                                    }.toolbar {
-                                        ToolbarItem(placement: .keyboard) {
-                                            Button("Done") {
-                                                focusedField = nil
-                                            }
-                                        }
                                     }
                                     VStack {
                                         Rectangle()
@@ -129,22 +121,20 @@ struct CalculatorCalories: View {
                             .frame(minHeight: geometry.size.height)
                             .frame(idealWidth: geometry.size.width)
                             .padding(.horizontal, 16)
-                    }
+                    }.scrollDismissesKeyboard(.immediately)
                 }
-                // TODO: correct smth
             }
         }
     }
-    //MARK: - Func to valculate calories
+    // MARK: - Func to valculate calories
     private func calculateTotalCaloriesWithoutActivity() {
         guard let age = Double(textInputAge),
-              let weight = Double(textInputWeight), // Исправлено
+              let weight = Double(textInputWeight),
               let height = Double(textInputHeight) else {
             print("Ошибка: введены неверные данные")
             return
         }
 
-        // Расчет базового метаболизма
         switch selectedGender {
         case .femaleGender:
             firstResult = 447.593 + Float((9.247 * weight)) + Float((3.098 * height) - (4.330 * age))
@@ -152,7 +142,6 @@ struct CalculatorCalories: View {
             firstResult = 88.362 + Float(13.397 * weight) + Float(4.799 * height) - Float(5.677 * age)
         }
 
-        // Установка коэффициента активности
         let activityMultiplier: Float
         switch selectedActivity {
         case .minimal:
@@ -168,29 +157,12 @@ struct CalculatorCalories: View {
         }
 
         secondResult = Int(firstResult * activityMultiplier)
-        secondResultSave = Int(Double(secondResult) - 0.5)
-        secondResultMore = Int(Double(secondResult) + 0.4)
-//        print(secondResult ?? 0) // Печатаем результат
+        secondResultSave = Int(Double(secondResult) - 500)
+        secondResultMore = Int(Double(secondResult) + 400)
     }
 }
-//MARK: - All enums
-//enum SideOfTypeGender: String, CaseIterable, Identifiable {
-//    var id: Self { self }
-//    case maleGender = "Male"
-//    case femaleGender = "Female"
-//}
-//
-//enum Activity: String, CaseIterable, Identifiable {
-//    case minimal = "Minimal"
-//    case low = "Low"
-//    case medium = "Medium"
-//    case high = "High"
-//    case veryHigh = "Very High"
-//    var id: Self { self }
-//}
-//
-//struct CalculatorCalories_Previews: PreviewProvider {
-//    static var previews: some View {
-//        CalculatorCalories()
-//    }
-//}
+struct CalculatorCalories_Previews: PreviewProvider {
+    static var previews: some View {
+        CalculatorCalories()
+    }
+}

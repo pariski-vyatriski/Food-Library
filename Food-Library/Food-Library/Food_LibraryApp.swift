@@ -8,7 +8,7 @@
 import SwiftUI
 
 @main
-struct Food_LibraryApp: App {
+struct FoodLibraryApp: App {
     let persistenceController = PersistenceController.shared
 
     var body: some Scene {
