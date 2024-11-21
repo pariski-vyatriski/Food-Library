@@ -43,6 +43,7 @@
 		18E9DD9C2CEE926800C8540D /* AnotherView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E9DD9B2CEE926800C8540D /* AnotherView.swift */; };
 		18E9DDA12CEF7C8200C8540D /* FirebaseCore in Frameworks */ = {isa = PBXBuildFile; productRef = 18E9DDA02CEF7C8200C8540D /* FirebaseCore */; };
 		18E9DDA82CEF993F00C8540D /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18E9DDA72CEF993E00C8540D /* MessageUI.framework */; };
+		18E9DDB72CEFC37200C8540D /* privacy-policy.html in Resources */ = {isa = PBXBuildFile; fileRef = 18E9DDB42CEFBC8800C8540D /* privacy-policy.html */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -76,6 +77,8 @@
 		18E9DD9B2CEE926800C8540D /* AnotherView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnotherView.swift; sourceTree = "<group>"; };
 		18E9DD9F2CEF79E100C8540D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		18E9DDA72CEF993E00C8540D /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
+		18E9DDAB2CEFACA900C8540D /* Privacy-Policy.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = "Privacy-Policy.md"; sourceTree = "<group>"; };
+		18E9DDB42CEFBC8800C8540D /* privacy-policy.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = "privacy-policy.html"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -118,17 +121,18 @@
 		1858B23C2CD81BF6005CF6F8 /* Food-Library */ = {
 			isa = PBXGroup;
 			children = (
-				18E9DD9F2CEF79E100C8540D /* Info.plist */,
 				1858B2682CDA4D41005CF6F8 /* Style */,
 				1858B2662CDA4D12005CF6F8 /* View */,
+				18E9DD9F2CEF79E100C8540D /* Info.plist */,
 				1858B23D2CD81BF6005CF6F8 /* Food_LibraryApp.swift */,
 				18E9DD992CEE902700C8540D /* GoogleService-Info (2).plist */,
 				1858B2412CD81BF8005CF6F8 /* Assets.xcassets */,
 				1858B2462CD81BF8005CF6F8 /* Persistence.swift */,
 				1858B2482CD81BF8005CF6F8 /* Scales.xcdatamodeld */,
-				1858B2432CD81BF8005CF6F8 /* Preview Content */,
 				18E9DD972CEE8F2300C8540D /* AppDelegate.swift */,
 				18E9DD9B2CEE926800C8540D /* AnotherView.swift */,
+				18E9DDAB2CEFACA900C8540D /* Privacy-Policy.md */,
+				1858B2432CD81BF8005CF6F8 /* Preview Content */,
 			);
 			path = "Food-Library";
 			sourceTree = "<group>";
@@ -170,6 +174,7 @@
 		1858B2712CDA7BD1005CF6F8 /* Settings */ = {
 			isa = PBXGroup;
 			children = (
+				18E9DDB42CEFBC8800C8540D /* privacy-policy.html */,
 				1858B26F2CDA7842005CF6F8 /* ContactUsView.swift */,
 				1858B2722CDA7BFF005CF6F8 /* RateUs.swift */,
 				1858B2742CDA7C1D005CF6F8 /* PrivacyPolicy.swift */,
@@ -244,6 +249,9 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
+				KnownAssetTags = (
+					New,
+				);
 				LastSwiftUpdateCheck = 1540;
 				LastUpgradeCheck = 1540;
 				TargetAttributes = {
@@ -279,6 +287,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				18E9DDB72CEFC37200C8540D /* privacy-policy.html in Resources */,
 				18E9DD9A2CEE902800C8540D /* GoogleService-Info (2).plist in Resources */,
 				1858B2512CD81C21005CF6F8 /* Launch Screen.storyboard in Resources */,
 				1858B2452CD81BF8005CF6F8 /* Preview Assets.xcassets in Resources */,

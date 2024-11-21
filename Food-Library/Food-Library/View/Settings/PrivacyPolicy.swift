@@ -1,28 +1,29 @@
-//
-//  PrivacyPolicy.swift
-//  Food-Library
-//
-//  Created by apple on 5.11.24.
-//
-
 import SwiftUI
+import WebKit
 
 struct PrivacyPolicy: View {
     var body: some View {
-        ZStack {
-            NavigationView {
-                ScrollView {
-                    LazyVStack(spacing: 6) {
-                        VStack {
-                            Text("Bububu")
-                        }
-                    }.navigationTitle("Privacy Policy")
-                }
-            }
-        }
+        WebView(fileName: "privacy-policy")
+            .edgesIgnoringSafeArea(.all)
+            .navigationTitle("Privacy Policy")
     }
 }
 
-#Preview {
-    PrivacyPolicy()
+struct WebView: UIViewRepresentable {
+    let fileName: String
+
+    func makeUIView(context: Context) -> WKWebView {
+        return WKWebView()
+    }
+
+    func updateUIView(_ uiView: WKWebView, context: Context) {
+
+        if let url = Bundle.main.url(forResource: fileName, withExtension: "html") {
+            print("URL найден: \(url)")  // Отладочное сообщение для проверки пути
+            let request = URLRequest(url: url)  // Создаем запрос для загрузки файла
+            uiView.load(request)  // Загружаем файл в WebView
+        } else {
+            print("Ошибка: Не удалось найти файл \(fileName).html в основном бандле")  // Сообщение об ошибке
+        }
+    }
 }
