@@ -1,29 +1,29 @@
-//
-//  TermOfUse.swift
-//  Food-Library
-//
-//  Created by apple on 5.11.24.
-//
-
 import SwiftUI
+import WebKit
 
 struct TermOfUse: View {
     var body: some View {
-        ZStack {
-            NavigationView {
-                ScrollView {
-                    LazyVStack(spacing: 6) {
-                        VStack {
-                            Text("1. Introduction")
-                            Spacer()
-                            Text("Bla-bla-bla")
-                        }
-                    }.navigationTitle("Term Of Use")
-                }
-            }
-        }
+        WebView(fileName: "TermOfUse")
+            .edgesIgnoringSafeArea(.all)
+            .navigationTitle("Privacy Policy")
     }
 }
-#Preview {
-    TermOfUse()
+
+struct WebViewAnother: UIViewRepresentable {
+    let fileName: String
+
+    func makeUIView(context: Context) -> WKWebView {
+        return WKWebView()
+    }
+
+    func updateUIView(_ uiView: WKWebView, context: Context) {
+
+        if let url = Bundle.main.url(forResource: fileName, withExtension: "html") {
+            print("URL найден: \(url)")  // Отладочное сообщение для проверки пути
+            let request = URLRequest(url: url)  // Создаем запрос для загрузки файла
+            uiView.load(request)  // Загружаем файл в WebView
+        } else {
+            print("Ошибка: Не удалось найти файл \(fileName).html в основном бандле")  // Сообщение об ошибке
+        }
+    }
 }

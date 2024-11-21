@@ -44,6 +44,8 @@
 		18E9DDA12CEF7C8200C8540D /* FirebaseCore in Frameworks */ = {isa = PBXBuildFile; productRef = 18E9DDA02CEF7C8200C8540D /* FirebaseCore */; };
 		18E9DDA82CEF993F00C8540D /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18E9DDA72CEF993E00C8540D /* MessageUI.framework */; };
 		18E9DDB72CEFC37200C8540D /* privacy-policy.html in Resources */ = {isa = PBXBuildFile; fileRef = 18E9DDB42CEFBC8800C8540D /* privacy-policy.html */; };
+		18E9DDBA2CEFCE4500C8540D /* TermOfUse in Resources */ = {isa = PBXBuildFile; fileRef = 18E9DDB92CEFCE4500C8540D /* TermOfUse */; };
+		18E9DDBC2CEFCF6200C8540D /* TermOfUse.html in Resources */ = {isa = PBXBuildFile; fileRef = 18E9DDBB2CEFCF6200C8540D /* TermOfUse.html */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -79,6 +81,8 @@
 		18E9DDA72CEF993E00C8540D /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		18E9DDAB2CEFACA900C8540D /* Privacy-Policy.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = "Privacy-Policy.md"; sourceTree = "<group>"; };
 		18E9DDB42CEFBC8800C8540D /* privacy-policy.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = "privacy-policy.html"; sourceTree = "<group>"; };
+		18E9DDB92CEFCE4500C8540D /* TermOfUse */ = {isa = PBXFileReference; lastKnownFileType = text; path = TermOfUse; sourceTree = "<group>"; };
+		18E9DDBB2CEFCF6200C8540D /* TermOfUse.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = TermOfUse.html; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -133,6 +137,7 @@
 				18E9DD9B2CEE926800C8540D /* AnotherView.swift */,
 				18E9DDAB2CEFACA900C8540D /* Privacy-Policy.md */,
 				1858B2432CD81BF8005CF6F8 /* Preview Content */,
+				18E9DDB92CEFCE4500C8540D /* TermOfUse */,
 			);
 			path = "Food-Library";
 			sourceTree = "<group>";
@@ -175,6 +180,7 @@
 			isa = PBXGroup;
 			children = (
 				18E9DDB42CEFBC8800C8540D /* privacy-policy.html */,
+				18E9DDBB2CEFCF6200C8540D /* TermOfUse.html */,
 				1858B26F2CDA7842005CF6F8 /* ContactUsView.swift */,
 				1858B2722CDA7BFF005CF6F8 /* RateUs.swift */,
 				1858B2742CDA7C1D005CF6F8 /* PrivacyPolicy.swift */,
@@ -287,9 +293,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				18E9DDBC2CEFCF6200C8540D /* TermOfUse.html in Resources */,
 				18E9DDB72CEFC37200C8540D /* privacy-policy.html in Resources */,
 				18E9DD9A2CEE902800C8540D /* GoogleService-Info (2).plist in Resources */,
 				1858B2512CD81C21005CF6F8 /* Launch Screen.storyboard in Resources */,
+				18E9DDBA2CEFCE4500C8540D /* TermOfUse in Resources */,
 				1858B2452CD81BF8005CF6F8 /* Preview Assets.xcassets in Resources */,
 				1858B2422CD81BF8005CF6F8 /* Assets.xcassets in Resources */,
 			);
