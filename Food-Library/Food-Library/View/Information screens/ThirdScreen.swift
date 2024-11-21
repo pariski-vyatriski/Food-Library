@@ -15,17 +15,18 @@ struct ThirdScreen: View {
                 .imageScale(.large)
                 .foregroundStyle(.tint)
             Text("Nutrition Analyzer")
-                .textStylemain()
+                .mainTextBlackBig()
 
             Rectangle()
                 .frame(width: 361, height: 0)
 
             VStack {
                 Text("Calculate the nutritional value of a dish based on weight of ingridients" )
-            }.notMainText()
+            }.notMainTextGray()
                 .frame(width: 249)
                 .lineLimit(3)
                 .multilineTextAlignment(.center)
+                .padding()
             Button(action: {
                 self.showingNextScreen.toggle()
             }, label: {

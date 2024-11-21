@@ -44,7 +44,7 @@ struct CalculatorCalories: View {
                                     VStack(alignment: .leading) {
                                         Spacer()
                                         Text("Gender")
-                                            .font(.custom("SFPro-Bold", size: 18))
+                                            .headers()
                                         Picker("Choose", selection: $selectedGender) {
                                             ForEach(SideOfTypeGender.allCases, id: \.self) { gender in
                                                 Text(gender.rawValue).tag(gender)
@@ -57,7 +57,7 @@ struct CalculatorCalories: View {
                                     }
                                     VStack(alignment: .leading) {
                                         Text("Activity")
-                                            .font(.custom("SFPro-Bold", size: 18))
+                                            .headers()
                                         Picker("Animal", selection: $selectedActivity) {
                                             ForEach(Activity.allCases) { activity in
                                                 Text(activity.rawValue)
@@ -67,7 +67,7 @@ struct CalculatorCalories: View {
                                     VStack {
                                         VStack(alignment: .leading) {
                                             Text("Age")
-                                                .font(.custom("SFPro-Bold", size: 18))
+                                                .headers()
                                             TextField("Select your age", text: $textInputAge)
                                                 .focused($focusedField, equals: .textInputAge)
                                                 .keyboardType(.numberPad)
@@ -75,15 +75,16 @@ struct CalculatorCalories: View {
                                         }
                                         VStack(alignment: .leading) {
                                             Text("Height")
+                                                .headers()
                                             TextField("Tape your height", text: $textInputHeight)
                                                 .focused($focusedField, equals: .textInputHeight)
                                                 .keyboardType(.numberPad)
                                                 .textFieldModifier()
                                         }
                                         VStack(alignment: .leading) {
-                                            Text("Weight") // Corrected spelling
-                                                .font(.custom("SFPro-Bold", size: 18))
-                                            TextField("Tape your weight", text: $textInputWeight) // Corrected spelling
+                                            Text("Weight")
+                                                .headers()
+                                            TextField("Tape your weight", text: $textInputWeight)
                                                 .focused($focusedField, equals: .textInputWeight)
                                                 .keyboardType(.numberPad)
                                                 .textFieldModifier()

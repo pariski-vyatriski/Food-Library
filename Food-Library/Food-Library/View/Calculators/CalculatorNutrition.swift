@@ -5,7 +5,6 @@ struct CalculatorNutrition: View {
     @State private var nutritionInfo: String = ""
     @State private var isLoading: Bool = false
     @State private var errorMessage: String?
-
     let appId = "1bbd39ab"
     let appKey = "ccfae710b9f226c001280a643b0915f4"
 
@@ -14,16 +13,14 @@ struct CalculatorNutrition: View {
             ScrollView {
                 VStack {
                     Image("ImageThree")
-                    Text("""
-                Calculate the nutritional value of a
-                    dish based on weight of ingredients
-                """)
+                    Text(" Calculate the nutritional value" +
+                         " of a dish based on weight of ingredients")
                     .notMainText()
+                    .multilineTextAlignment(.center)
 
                     TextField("Example: 100 gr. of rice, 250 ml of milk", text: $foodItem)
                         .textFieldModifier()
                         .padding()
-                    Text("The market days are \(Text("Wednesday").bold()) and \(Text("Sunday").bold()).")
 
                     Button {
                         fetchNutritionData(for: foodItem)
@@ -153,23 +150,28 @@ struct NutritionResponse: Codable {
         let fat: Nutrient?
         let carbs: Nutrient?
         let protein: Nutrient?
+    }
 
-        enum CodingKeys: String, CodingKey {
-            case fat = "FAT"
-            case carbs = "CHOCDF"
-            case protein = "PROCNT"
-        }
+    struct Nutrient: Codable {
+        let label: String
+        let quantity: Double
+        let unit: String
+    }
 
-        struct Nutrient: Codable {
-            let label: String
-            let quantity: Double
-            let unit: String
-        }
+    enum CodingKeys: String, CodingKey {
+        case calories
+        case totalWeight
+        case totalNutrients
+    }
+
+    enum NutrientsCodingKeys: String, CodingKey {
+        case fat = "FAT"
+        case carbs = "CHOCDF"
+        case protein = "PROCNT"
     }
 }
 
 // MARK: - Previews
-
 struct Nuttri_Previews: PreviewProvider {
     static var previews: some View {
         CalculatorNutrition()

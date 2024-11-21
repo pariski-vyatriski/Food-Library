@@ -47,7 +47,7 @@ struct CalculatorVeight: View {
 
                                 VStack(alignment: .leading) {
                                     Text("Product")
-                                        .textStyle()
+                                        .headers()
                                     Picker("Product", selection: $selectedProduct) {
                                         ForEach(Product.allCases) { product in
                                             Text(product.rawValue).tag(product)
@@ -61,7 +61,7 @@ struct CalculatorVeight: View {
 
                                 VStack(alignment: .leading) {
                                     Text("Measurement Parametr")
-                                        .textStyle()
+                                        .headers()
                                     Picker("Measurement Type", selection: $selectedParametr) {
                                         ForEach(MeasurementCategory.allCases, id: \.self) { parametr in
                                             Text(parametr.rawValue).tag(parametr)
@@ -78,7 +78,7 @@ struct CalculatorVeight: View {
 
                                 VStack(alignment: .leading) {
                                     Text("Quantity")
-                                        .textStyle()
+                                        .headers()
                                     TextField("0", text: $quanity)
                                         .keyboardType(.numberPad)
                                         .textFieldModifier()
@@ -111,7 +111,7 @@ struct CalculatorVeight: View {
                                 }
                                 VStack(alignment: .leading) {
                                     Text("What to count into")
-                                        .textStyle()
+                                        .headers()
                                     Picker("What to count into", selection: $convertInto) {
                                         ForEach(ConvertInto.allCases) { convert in
                                             Text(convert.rawValue).tag(convert)
@@ -126,7 +126,7 @@ struct CalculatorVeight: View {
                                 HStack {
                                     VStack(alignment: .leading) {
                                         Text("= \(result)")
-                                            .textStyle()
+                                            .headers()
                                             .frame(alignment: .leading)
                                     }
                                     .frame(maxWidth: .infinity, alignment: .leading)

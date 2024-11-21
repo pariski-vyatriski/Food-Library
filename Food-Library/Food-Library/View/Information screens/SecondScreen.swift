@@ -1,32 +1,32 @@
 //
-//  FirstScreen.swift
-//  FoodLibrarySwiftUi
+//  SecondScreen.swift
+//  Food-Library
 //
-//  Created by apple on 27.10.24.
+//  Created by apple on 20.11.24.
 //
 
 import SwiftUI
 
-struct FisrtScreen: View {
+struct SecondScreen: View {
     @State private var showingNextScreen = false
     var body: some View {
-        //        NavigationView {
         VStack {
-            Image(.imageOne)
+            Image(.imageFour)
                 .imageScale(.large)
                 .foregroundStyle(.tint)
-            Text("Food Library")
-                .textStylemain()
+            Text("Calorie Counter")
+                .mainTextBlackBig()
 
             Rectangle()
                 .frame(width: 361, height: 0)
 
             VStack {
-                Text("No scales? Calculator converts gr. to ml. for better cooking" )
-            }.notMainText()
+                Text("Learn the calorie content of foods for your optimal health" )
+            }.notMainTextGray()
                 .frame(width: 249)
                 .lineLimit(3)
                 .multilineTextAlignment(.center)
+                .padding()
             Button(action: {
                 self.showingNextScreen.toggle()
             }, label: {
@@ -35,9 +35,14 @@ struct FisrtScreen: View {
                     .padding(EdgeInsets(top: 15, leading: 140, bottom: 15, trailing: 140))
             })
             .fullScreenCover(isPresented: $showingNextScreen) {
-                SecondScreen()
+                ThirdScreen()
             }
             .buttonStyle(MyButtonStyle())
         }
+    }
+}
+struct SecondScreen_Previews: PreviewProvider {
+    static var previews: some View {
+        SecondScreen()
     }
 }

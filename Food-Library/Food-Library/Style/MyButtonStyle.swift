@@ -9,13 +9,9 @@ import SwiftUI
 struct MyButtonStyle: ButtonStyle {
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
-
             .foregroundColor( configuration.isPressed ? .white : .white)
             .background(configuration.isPressed ? .buttonTupped : .button)
-
             .clipShape(RoundedRectangle(cornerSize: CGSize(width: 63, height: 63)))
-            .shadow(radius: 1)
-//            .frame(width: 361.0, height: 44)
             .frame(maxWidth: .infinity)
     }
 

@@ -7,42 +7,59 @@
 
 import SwiftUI
 
-struct TextStyle: ViewModifier {
-    func body(content: Content) -> some View {
-        content
-            .font(Font.custom("ArialUnicodeMS", size: 18))
-    }
-}
-
-extension View {
-    func textStyle() -> some View {
-        self.modifier(TextStyle())
-    }
-}
-
-struct TextStyleMain: ViewModifier {
-    func body(content: Content) -> some View {
-        content
-            .font(.custom("STIXTwoText_SemiBold", size: 30))
-    }
-}
-
-extension View {
-    func textStylemain() -> some View {
-        self.modifier(TextStyleMain())
-    }
-}
-
 struct NotMainText: ViewModifier {
     func body(content: Content) -> some View {
         content
-            .font(.custom("ArialUnicodeMS", size: 20))
-            .foregroundColor(.gray)
+            .font(.custom("AvenirNext-Regular", size: 16))
+            .foregroundColor(.secondText)
     }
 }
 
 extension View {
     func notMainText() -> some View {
         self.modifier(NotMainText())
+    }
+}
+
+struct NotMainTextGray: ViewModifier {
+    func body(content: Content) -> some View {
+        content
+            .font(.custom("AvenirNext-Medium", size: 18))
+            .foregroundColor(.secondText)
+    }
+}
+
+extension View {
+    func notMainTextGray() -> some View {
+        self.modifier(NotMainText())
+    }
+}
+
+struct MainTextBlackBig: ViewModifier {
+    func body(content: Content) -> some View {
+        content
+            .font(.custom("AvenirNext-Bold", size: 24))
+            .foregroundStyle(.color)
+
+    }
+}
+
+extension View {
+    func mainTextBlackBig() -> some View {
+        self.modifier(MainTextBlackBig())
+    }
+}
+
+struct Headers: ViewModifier {
+    func body(content: Content) -> some View {
+        content
+            .font(.custom("AvenirNext-Medium", size: 16))
+            .foregroundColor(.color)
+    }
+}
+
+extension View {
+    func headers() -> some View {
+        self.modifier(Headers())
     }
 }

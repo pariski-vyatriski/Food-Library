@@ -25,9 +25,9 @@ struct Saved: View {
                 ForEach(scales, id: \.self) { scales in
                     VStack(alignment: .leading, spacing: 8) {
                         Text(scales.name ?? "Nill Scales")
-                            .font(.headline)
+                            .headers()
                         Text(scales.value ?? "Nill Scales")
-                            .font(.subheadline)
+                            .textFieldModifier()
 
                     }
                 }
