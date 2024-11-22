@@ -4,7 +4,7 @@ struct CalculatorCalories: View {
     private enum Field: Int, CaseIterable {
         case textInputAge, textInputHeight, textInputWeight
     }
-/// enter and choose the information
+    /// enter and choose the information
     @State private var selectedGender: SideOfTypeGender = .maleGender
     @State private var textInputActivity = ""
     @State private var textInputAge = ""
@@ -24,6 +24,10 @@ struct CalculatorCalories: View {
     init(firstResult: Float = 0, secondResult: Int = 0, secondResultSave: Int = 0, secondResultMore: Int = 0) {
         self.firstResult = firstResult
         self.secondResult = secondResult
+        if let customFont = UIFont(name: "AvenirNext-Regular", size: 14) {
+            UISegmentedControl.appearance().setTitleTextAttributes([.font: customFont], for: .highlighted)
+            UISegmentedControl.appearance().setTitleTextAttributes([.font: customFont], for: .normal)
+        }
     }
     // MARK: - Visual part of code
     var body: some View {
@@ -61,8 +65,10 @@ struct CalculatorCalories: View {
                                         Picker("Animal", selection: $selectedActivity) {
                                             ForEach(Activity.allCases) { activity in
                                                 Text(activity.rawValue)
+                                                    .font(.custom("AvenirNext-Regular", size: 14))
                                             }
                                         }.pickerListStyle()
+
                                     }
                                     VStack {
                                         VStack(alignment: .leading) {

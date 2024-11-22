@@ -38,7 +38,10 @@ class MailCoordinator: NSObject, MFMailComposeViewControllerDelegate {
         _isShowing = isShowing
     }
 
-    func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
+    func mailComposeController(
+        _ controller: MFMailComposeViewController,
+        didFinishWith result: MFMailComposeResult,
+        error: Error?) {
         controller.dismiss(animated: true) {
             self.isShowing = false
         }

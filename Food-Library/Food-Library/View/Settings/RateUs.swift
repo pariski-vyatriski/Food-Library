@@ -9,7 +9,8 @@ import SwiftUI
 
 struct RateUs: View {
     var body: some View {
-        Text("Hello, World!")
+         Link("Visit SwiftyPlace",
+               destination: URL(string: "https://www.apple.com/by/app-store/")!)
     }
 }
 

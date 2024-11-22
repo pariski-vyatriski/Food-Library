@@ -30,9 +30,14 @@ struct Settings: View {
                                     Text("Rate Us")
                                         .headers()
                                     Spacer()
-                                    NavigationLink(destination: RateUs()) {
+                                    Button(action: {
+                                        if let url = URL(string: "https://www.apple.com/by/app-store/") {
+                                            UIApplication.shared.open(url)
+                                        }
+                                    }, label: {
                                         Image("arrow")
-                                    }
+                                    })
+
                                 }.padding(.bottom)
                                 HStack {
                                     Text("Privacy Policy")

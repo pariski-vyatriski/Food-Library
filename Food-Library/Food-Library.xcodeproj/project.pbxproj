@@ -28,6 +28,7 @@
 		1858B2752CDA7C1D005CF6F8 /* PrivacyPolicy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1858B2742CDA7C1D005CF6F8 /* PrivacyPolicy.swift */; };
 		1858B2772CDA7C37005CF6F8 /* TermOfUse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1858B2762CDA7C37005CF6F8 /* TermOfUse.swift */; };
 		1858B2792CDA82DF005CF6F8 /* enum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1858B2782CDA82DF005CF6F8 /* enum.swift */; };
+		18D066982CF0C763003FC350 /* AvenirNextCyr-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 18D066962CF0C5E8003FC350 /* AvenirNextCyr-Regular.ttf */; };
 		18E9DD852CEDCBC200C8540D /* SecondScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E9DD842CEDCBC200C8540D /* SecondScreen.swift */; };
 		18E9DD872CEE43FF00C8540D /* ThirdScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E9DD862CEE43FF00C8540D /* ThirdScreen.swift */; };
 		18E9DD8A2CEE8E8F00C8540D /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 18E9DD892CEE8E8F00C8540D /* FirebaseAnalytics */; };
@@ -70,6 +71,7 @@
 		1858B2742CDA7C1D005CF6F8 /* PrivacyPolicy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacyPolicy.swift; sourceTree = "<group>"; };
 		1858B2762CDA7C37005CF6F8 /* TermOfUse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermOfUse.swift; sourceTree = "<group>"; };
 		1858B2782CDA82DF005CF6F8 /* enum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = enum.swift; sourceTree = "<group>"; };
+		18D066962CF0C5E8003FC350 /* AvenirNextCyr-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "AvenirNextCyr-Regular.ttf"; sourceTree = "<group>"; };
 		18E9DD842CEDCBC200C8540D /* SecondScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondScreen.swift; sourceTree = "<group>"; };
 		18E9DD862CEE43FF00C8540D /* ThirdScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThirdScreen.swift; sourceTree = "<group>"; };
 		18E9DD992CEE902700C8540D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -123,6 +125,7 @@
 		1858B23C2CD81BF6005CF6F8 /* Food-Library */ = {
 			isa = PBXGroup;
 			children = (
+				18D066962CF0C5E8003FC350 /* AvenirNextCyr-Regular.ttf */,
 				1858B2682CDA4D41005CF6F8 /* Style */,
 				1858B2662CDA4D12005CF6F8 /* View */,
 				1858B23D2CD81BF6005CF6F8 /* Food_LibraryApp.swift */,
@@ -297,6 +300,7 @@
 				1858B2512CD81C21005CF6F8 /* Launch Screen.storyboard in Resources */,
 				18E9DDBA2CEFCE4500C8540D /* TermOfUse in Resources */,
 				1858B2452CD81BF8005CF6F8 /* Preview Assets.xcassets in Resources */,
+				18D066982CF0C763003FC350 /* AvenirNextCyr-Regular.ttf in Resources */,
 				1858B2422CD81BF8005CF6F8 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
