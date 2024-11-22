@@ -5,7 +5,7 @@ struct TermOfUse: View {
     var body: some View {
         WebView(fileName: "TermOfUse")
             .edgesIgnoringSafeArea(.all)
-            .navigationTitle("Privacy Policy")
+            .navigationTitle("Terms Of Use")
     }
 }
 

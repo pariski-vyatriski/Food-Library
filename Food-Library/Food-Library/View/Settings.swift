@@ -11,50 +11,55 @@ struct Settings: View {
                     ScrollView {
                         LazyVStack(spacing: 6) {
                             VStack {
-                                HStack(spacing: 16) {
-                                    Text("Contact Us")
-                                        .headers()
-                                    Spacer()
 
+                                HStack(spacing: 16) {
                                     Button(action: {
                                         self.isShowingMailView.toggle()
                                     }, label: {
+                                       Text("Contact Us")
+                                            .foregroundColor(.black)
+                                            .headers()
+                                        Spacer()
                                         Image("arrow")
-                                    })
-                                    .sheet(isPresented: $isShowingMailView) {
+                                    }) .sheet(isPresented: $isShowingMailView) {
                                         MailView(isShowing: self.$isShowingMailView)
                                     }
                                 }.padding(.bottom)
 
                                 HStack {
-                                    Text("Rate Us")
-                                        .headers()
-                                    Spacer()
                                     Button(action: {
                                         if let url = URL(string: "https://www.apple.com/by/app-store/") {
                                             UIApplication.shared.open(url)
                                         }
                                     }, label: {
+                                       Text("Rate Us")
+                                            .foregroundColor(.black)
+                                            .headers()
+                                        Spacer()
                                         Image("arrow")
                                     })
+                                }.padding(.bottom)
 
-                                }.padding(.bottom)
-                                HStack {
-                                    Text("Privacy Policy")
-                                        .headers()
-                                    Spacer()
-                                    NavigationLink(destination: PrivacyPolicy()) {
+                                NavigationLink(destination: PrivacyPolicy()) {
+                                    HStack {
+                                        Text("Privacy Policy")
+                                            .foregroundColor(.black)
+                                            .headers()
+                                        Spacer()
                                         Image("arrow")
                                     }
                                 }.padding(.bottom)
-                                HStack {
-                                    Text("Term of Use")
-                                        .headers()
-                                    Spacer()
-                                    NavigationLink(destination: TermOfUse()) {
+
+                                NavigationLink(destination: TermOfUse()) {
+                                    HStack {
+                                        Text("Terms Of Use")
+                                            .foregroundColor(.black)
+                                            .headers()
+                                        Spacer()
                                         Image("arrow")
                                     }
                                 }.padding(.bottom)
+
                             }.padding(.top)
                         }
                         .navigationTitle("Settings")

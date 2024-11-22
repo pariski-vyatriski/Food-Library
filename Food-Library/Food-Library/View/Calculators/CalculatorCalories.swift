@@ -45,7 +45,7 @@ struct CalculatorCalories: View {
                             }
                             VStack(alignment: .leading, spacing: 15) {
                                 VStack {
-                                    VStack(alignment: .leading) {
+                                    VStack(alignment: .leading, spacing: 3) {
                                         Spacer()
                                         Text("Gender")
                                             .headers()
@@ -58,8 +58,9 @@ struct CalculatorCalories: View {
                                         .background(.second)
                                         .cornerRadius(9)
                                         .pickerStyle(SegmentedPickerStyle())
-                                    }
-                                    VStack(alignment: .leading) {
+                                    }.padding(.bottom, 10)
+
+                                    VStack(alignment: .leading, spacing: 3) {
                                         Text("Activity")
                                             .headers()
                                         Picker("Animal", selection: $selectedActivity) {
@@ -68,26 +69,26 @@ struct CalculatorCalories: View {
                                                     .font(.custom("AvenirNext-Regular", size: 14))
                                             }
                                         }.pickerListStyle()
+                                    }.padding(.bottom, 10)
 
-                                    }
                                     VStack {
-                                        VStack(alignment: .leading) {
+                                        VStack(alignment: .leading, spacing: 3) {
                                             Text("Age")
                                                 .headers()
                                             TextField("Select your age", text: $textInputAge)
                                                 .focused($focusedField, equals: .textInputAge)
                                                 .keyboardType(.numberPad)
                                                 .textFieldModifier()
-                                        }
-                                        VStack(alignment: .leading) {
+                                        }.padding(.bottom, 10)
+                                        VStack(alignment: .leading, spacing: 3) {
                                             Text("Height")
                                                 .headers()
                                             TextField("Tape your height", text: $textInputHeight)
                                                 .focused($focusedField, equals: .textInputHeight)
                                                 .keyboardType(.numberPad)
                                                 .textFieldModifier()
-                                        }
-                                        VStack(alignment: .leading) {
+                                        }.padding(.bottom, 10)
+                                        VStack(alignment: .leading, spacing: 3) {
                                             Text("Weight")
                                                 .headers()
                                             TextField("Tape your weight", text: $textInputWeight)
@@ -95,7 +96,8 @@ struct CalculatorCalories: View {
                                                 .keyboardType(.numberPad)
                                                 .textFieldModifier()
                                         }
-                                    }
+                                    }.padding(.bottom, 10)
+
                                     VStack {
                                         Rectangle()
                                             .frame(width: 361, height: 0)
@@ -115,12 +117,11 @@ struct CalculatorCalories: View {
                                             isTextVisible.toggle()
                                         } label: {
                                             HStack {
-                                                Text("Continue")
+                                                Text("Calculate")
                                                     .font(.custom("AvenirNext-Regular", size: 18))
                                             }.padding(EdgeInsets(top: 15, leading: 140, bottom: 15, trailing: 140))
 
                                         }.buttonStyle(.myButtonStyle)
-
                                     }
                                 }
                             }

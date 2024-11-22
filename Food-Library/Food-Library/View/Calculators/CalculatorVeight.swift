@@ -40,7 +40,7 @@ struct CalculatorVeight: View {
                                 Image(.imageTwo)
                                     .resizable()
                                     .scaledToFit()
-                                    .frame(maxWidth: .infinity, maxHeight: 150)
+                                    .frame(maxWidth: .infinity, maxHeight: 100)
                                     .clipped()
                             }
                             VStack(alignment: .leading, spacing: 15) {
@@ -57,7 +57,7 @@ struct CalculatorVeight: View {
                                     .onChange(of: selectedProduct) {
                                         calculateVeight()
                                     }
-                                }
+                                }.padding(.bottom, 10)
 
                                 VStack(alignment: .leading) {
                                     Text("Measurement Parameter")
@@ -74,7 +74,7 @@ struct CalculatorVeight: View {
                                     .onChange(of: selectedParametr) {
                                         calculateVeight()
                                     }
-                                }
+                                }.padding(.bottom, 10)
 
                                 VStack(alignment: .leading) {
                                     Text("Quantity")
@@ -108,7 +108,7 @@ struct CalculatorVeight: View {
                                             calculateVeight()
                                         }
                                     }
-                                }
+                                }.padding(.bottom, 10)
                                 VStack(alignment: .leading) {
                                     Text("What to count into")
                                         .headers()
@@ -121,7 +121,7 @@ struct CalculatorVeight: View {
                                     .onChange(of: convertInto) {
                                         calculateVeight()
                                     }
-                                }
+                                }.padding(.bottom, 10)
 
                                 HStack {
                                     VStack(alignment: .leading) {
