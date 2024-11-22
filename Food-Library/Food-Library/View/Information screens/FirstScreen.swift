@@ -31,7 +31,7 @@ struct FisrtScreen: View {
                 self.showingNextScreen.toggle()
             }, label: {
                 Text("Continue")
-                    .font(.custom("SFPro-Bold", size: 18))
+                    .font(.custom("AvenirNext-Regular", size: 18))
                     .padding(EdgeInsets(top: 15, leading: 140, bottom: 15, trailing: 140))
             })
             .fullScreenCover(isPresented: $showingNextScreen) {

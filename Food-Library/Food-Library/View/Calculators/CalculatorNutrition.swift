@@ -27,7 +27,7 @@ struct CalculatorNutrition: View {
                     } label: {
                         HStack {
                             Text("Calculate")
-                                .font(.custom("SFPro-Bold", size: 18))
+                                .font(.custom("AvenirNext-Regular", size: 18))
                         }
                         .padding(EdgeInsets(top: 15, leading: 140, bottom: 15, trailing: 140))
                     }

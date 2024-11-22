@@ -40,7 +40,7 @@ struct CalculatorVeight: View {
                                 Image(.imageTwo)
                                     .resizable()
                                     .scaledToFit()
-                                    .frame(maxWidth: .infinity, maxHeight: 165)
+                                    .frame(maxWidth: .infinity, maxHeight: 150)
                                     .clipped()
                             }
                             VStack(alignment: .leading, spacing: 15) {
@@ -60,7 +60,7 @@ struct CalculatorVeight: View {
                                 }
 
                                 VStack(alignment: .leading) {
-                                    Text("Measurement Parametr")
+                                    Text("Measurement Parameter")
                                         .headers()
                                     Picker("Measurement Type", selection: $selectedParametr) {
                                         ForEach(MeasurementCategory.allCases, id: \.self) { parametr in
@@ -145,7 +145,7 @@ struct CalculatorVeight: View {
                                             .cornerRadius(8)
                                     })
                                 }
-                                .frame(maxWidth: .infinity)
+                                .frame(maxWidth: .infinity, maxHeight: 30)
                                 .padding()
                                 .background(
                                     RoundedRectangle(cornerRadius: 10)

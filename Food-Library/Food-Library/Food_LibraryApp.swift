@@ -6,11 +6,14 @@
 //
 
 import SwiftUI
-import Firebase
+import FirebaseCore
 @main
 struct FoodLibraryApp: App {
     let persistenceController = PersistenceController.shared
 
+    init() {
+        FirebaseApp.configure()
+    }
     var body: some Scene {
         WindowGroup {
             FisrtScreen()

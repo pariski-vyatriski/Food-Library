@@ -36,7 +36,7 @@ struct CalculatorCalories: View {
                                 Image(.image3)
                                     .resizable()
                                     .scaledToFit()
-                                    .frame(maxWidth: .infinity, maxHeight: 150)
+                                    .frame(maxWidth: .infinity, maxHeight: 130)
                                     .clipped()
                             }
                             VStack(alignment: .leading, spacing: 15) {
@@ -110,7 +110,7 @@ struct CalculatorCalories: View {
                                         } label: {
                                             HStack {
                                                 Text("Continue")
-                                                    .font(.custom("SFPro-Bold", size: 18))
+                                                    .font(.custom("AvenirNext-Regular", size: 18))
                                             }.padding(EdgeInsets(top: 15, leading: 140, bottom: 15, trailing: 140))
 
                                         }.buttonStyle(.myButtonStyle)
@@ -158,8 +158,8 @@ struct CalculatorCalories: View {
         }
 
         secondResult = Int(firstResult * activityMultiplier)
-        secondResultSave = Int(Double(secondResult) - 500)
-        secondResultMore = Int(Double(secondResult) + 400)
+        secondResultSave = Int(Double(secondResult) + 500)
+        secondResultMore = Int(Double(secondResult) - 400)
     }
 }
 struct CalculatorCalories_Previews: PreviewProvider {
