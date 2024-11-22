@@ -15,13 +15,14 @@ struct Settings: View {
                                     Text("Contact Us")
                                         .headers()
                                     Spacer()
+
                                     Button(action: {
-                                        self.isShowingMailView.toggle()  // Открываем почтовый композитор
+                                        self.isShowingMailView.toggle()
                                     }, label: {
                                         Image("arrow")
                                     })
-                                    .sheet(isPresented: $isShowingMailView) {  // Открываем модальное окно для письма
-                                        MailComposeViewControllerWrapper(isShowing: self.$isShowingMailView)
+                                    .sheet(isPresented: $isShowingMailView) {
+                                        MailView(isShowing: self.$isShowingMailView)
                                     }
                                 }.padding(.bottom)
 
@@ -57,42 +58,6 @@ struct Settings: View {
                     }
                 }
             }
-        }
-    }
-}
-
-struct MailComposeViewControllerWrapper: UIViewControllerRepresentable {
-    @Binding var isShowing: Bool  // Связь с состоянием отображения почтового окна
-
-    func makeUIViewController(context: Context) -> MFMailComposeViewController {
-        let composeVC = MFMailComposeViewController()
-        composeVC.setSubject("Subject of the email")
-        composeVC.setMessageBody("Body of the email", isHTML: false)
-        composeVC.mailComposeDelegate = context.coordinator
-        return composeVC
-    }
-
-    // Обновление состояния компонента (здесь не требуется)
-    func updateUIViewController(_ uiViewController: MFMailComposeViewController, context: Context) {}
-
-    // Делегат для обработки результата отправки письма
-    func makeCoordinator() -> MailCoordinator {
-        return MailCoordinator(isShowing: $isShowing)
-    }
-}
-
-class MailCoordinator: NSObject, MFMailComposeViewControllerDelegate {
-    @Binding var isShowing: Bool
-
-    init(isShowing: Binding<Bool>) {
-        _isShowing = isShowing
-    }
-
-    func mailComposeController(_ controller: MFMailComposeViewController,
-                               didFinishWith result: MFMailComposeResult,
-                               error: Error?) {
-        controller.dismiss(animated: true) {
-            self.isShowing = false
         }
     }
 }
