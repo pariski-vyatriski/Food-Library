@@ -166,7 +166,7 @@ struct CalculatorVeight: View {
             }
         }
     }
-    // MARK: - Function to calculate product density
+    // MARK: - product density
     func getProductDensity(for product: Product) -> Float {
         switch product {
         case .cocoaPowder: return 0.65
@@ -181,7 +181,7 @@ struct CalculatorVeight: View {
         case .water: return 1.0
         }
     }
-    // MARK: - Function to calculate weight
+    // MARK: - calculate weight
     func calculateWeight(quantity: Float, weightType: QuantityTypeOfWeight) -> Float {
         switch weightType {
         case .gram: return quantity / 1000
@@ -190,7 +190,7 @@ struct CalculatorVeight: View {
         case .pound: return quantity * 0.453592
         }
     }
-    // MARK: - Function to calculate volume
+    // MARK: - calculate volume
     func calculateVolume(quantity: Float, volumeType: QuantityTypeOfVolume) -> Float {
         switch volumeType {
         case .liter: return quantity
@@ -200,7 +200,7 @@ struct CalculatorVeight: View {
         case .teaspoon: return quantity * 5 / 1000
         }
     }
-    // MARK: - Function to convert units
+    // MARK: - convert units
     func convertToDesiredUnits(weight: Float, volume: Float, convertInto: ConvertInto) -> Float {
         switch convertInto {
         case .gram: return weight * 1000

@@ -103,7 +103,7 @@ struct CalculatorCalories: View {
                                             .frame(width: 361, height: 0)
                                         if isTextVisible {
                                             VStack(alignment: .leading, spacing: 10) {
-                                                Text("Weight: ")
+                                                Text("Calories: ")
                                                     .font(.custom("STIXTwoText_SemiBold", size: 20))
                                                     .foregroundStyle(.button)
                                                 Text("\(secondResult) kcal - for weight maintenance")

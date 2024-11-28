@@ -5,6 +5,12 @@ struct CalculatorNutrition: View {
     @State private var nutritionInfo: String = ""
     @State private var isLoading: Bool = false
     @State private var errorMessage: String?
+    @State private var totalWeight: Double = 0.0
+    @State private var totalCalories: Double = 0.0
+    @State private var totalFat: Double = 0.0
+    @State private var totalCarbs: Double = 0.0
+    @State private var totalProtein: Double = 0.0
+
     let appId = "1bbd39ab"
     let appKey = "ccfae710b9f226c001280a643b0915f4"
 
@@ -13,17 +19,17 @@ struct CalculatorNutrition: View {
             ScrollView {
                 VStack {
                     Image("ImageThree")
-                    Text(" Calculate the nutritional value" +
-                         " of a dish based on weight of ingredients")
-                    .notMainText()
-                    .multilineTextAlignment(.center)
+                    Text("Calculate the nutritional value of ingredients")
+                        .notMainText()
+                        .multilineTextAlignment(.center)
 
-                    TextField("Example: 100 gr. of rice, 250 ml of milk", text: $foodItem)
+                    TextField("Example: 100 gr. of rice", text: $foodItem)
                         .textFieldModifier()
                         .padding()
 
                     Button {
-                        fetchNutritionData(for: foodItem)
+                        let ingredients = foodItem.split(separator: ",").map { String($0).trimmingCharacters(in: .whitespacesAndNewlines) }
+                        fetchNutritionData(for: ingredients)
                     } label: {
                         HStack {
                             Text("Calculate")
@@ -61,79 +67,111 @@ struct CalculatorNutrition: View {
             .scrollDismissesKeyboard(.immediately)
         }
     }
-
-    // Fetching data from API
-    func fetchNutritionData(for foodItem: String) {
-        guard !foodItem.isEmpty else {
+// MARK: work with data
+    // Измененная функция для обработки нескольких ингредиентов
+    func fetchNutritionData(for ingredients: [String]) {
+        guard !ingredients.isEmpty else {
             nutritionInfo = ""
-            errorMessage = "Please enter a food item."
-            return
-        }
-
-        let encodedItem = foodItem.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? ""
-        let urlString = "https://api.edamam.com/api/nutrition-data?app_id=\(appId)" +
-        "&app_key=\(appKey)&ingr=\(encodedItem)"
-        guard let url = URL(string: urlString) else {
-            errorMessage = "Invalid URL"
+            errorMessage = "Please enter an ingredient."
             return
         }
 
         isLoading = true
         errorMessage = nil
 
-        let task = URLSession.shared.dataTask(with: url) { data, _, error in
-            DispatchQueue.main.async {
-                self.isLoading = false
-            }
+        var nutritionResults = [String]()
 
-            if let error = error {
+        totalWeight = 0.0
+        totalCalories = 0.0
+
+        // Для каждого ингредиента запрашиваем данные
+        let group = DispatchGroup()
+
+        for ingredient in ingredients {
+            group.enter()
+
+            let encodedItem = ingredient.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? ""
+            let urlString = "https://api.edamam.com/api/nutrition-data?app_id=\(appId)" +
+            "&app_key=\(appKey)&ingr=\(encodedItem)"
+
+            guard let url = URL(string: urlString) else {
                 DispatchQueue.main.async {
-                    self.errorMessage = "Error: \(error.localizedDescription)"
+                    self.errorMessage = "Invalid URL"
                 }
+                group.leave()
                 return
             }
 
-            guard let data = data else {
-                DispatchQueue.main.async {
-                    self.errorMessage = "No data received."
+            let task = URLSession.shared.dataTask(with: url) { data, _, error in
+                if let error = error {
+                    DispatchQueue.main.async {
+                        self.errorMessage = "Error: \(error.localizedDescription)"
+                    }
+                    group.leave()
+                    return
                 }
-                return
+
+                guard let data = data else {
+                    DispatchQueue.main.async {
+                        self.errorMessage = "No data received."
+                    }
+                    group.leave()
+                    return
+                }
+
+                do {
+                    let nutritionData = try JSONDecoder().decode(NutritionResponse.self, from: data)
+                    let formattedData = self.formatNutritionData(nutritionData, ingredient: ingredient)
+                    DispatchQueue.main.async {
+                        nutritionResults.append(formattedData)
+
+                        // Суммирование данных
+                        if let totalWeight = nutritionData.totalWeight {
+                            self.totalWeight += totalWeight
+                        }
+                        if let calories = nutritionData.calories {
+                            self.totalCalories += calories
+                        }
+                    }
+                } catch {
+                    DispatchQueue.main.async {
+                        self.errorMessage = "Error decoding data: \(error.localizedDescription)"
+                    }
+                }
+                group.leave()
             }
 
-            // Print raw response data for debugging
-            if let jsonString = String(data: data, encoding: .utf8) {
-                print("Received data: \(jsonString)")
-            }
-
-            do {
-                let nutritionData = try JSONDecoder().decode(NutritionResponse.self, from: data)
-                DispatchQueue.main.async {
-                    self.nutritionInfo = self.formatNutritionData(nutritionData)
-                }
-            } catch {
-                DispatchQueue.main.async {
-                    self.errorMessage = "Error decoding data: \(error.localizedDescription)"
-                }
-            }
+            task.resume()
         }
-        task.resume()
+
+        // После того как все запросы завершены, обновляем UI
+        group.notify(queue: .main) {
+            if !nutritionResults.isEmpty {
+                self.nutritionInfo = nutritionResults.joined(separator: "\n\n")
+                self.nutritionInfo += "\n\nTotal Nutrition for all ingredients:\n"
+                self.nutritionInfo += "Total Weight: \(self.totalWeight) gr.\n"
+                self.nutritionInfo += "Total Calories: \(self.totalCalories) kkal\n"
+            } else {
+                self.nutritionInfo = "No valid nutrition data found."
+            }
+            self.isLoading = false
+        }
     }
 
-    func formatNutritionData(_ data: NutritionResponse) -> String {
-        var result = """
-        Total Weight: \(data.totalWeight) gr.
-        Calories: \(data.calories) kkal
-        """
-        if let nutrients = data.totalNutrients {
-            if let fat = nutrients.fat {
-                result += "\nFat: \(fat.quantity) \(fat.unit)"
-            }
-            if let carbs = nutrients.carbs {
-                result += "\nCarbs: \(carbs.quantity) \(carbs.unit)"
-            }
-            if let protein = nutrients.protein {
-                result += "\nProtein: \(protein.quantity) \(protein.unit)"
-            }
+    // Форматирование данных для каждого ингредиента
+    func formatNutritionData(_ data: NutritionResponse, ingredient: String) -> String {
+        var result = "\(ingredient):\n"
+
+        if let totalWeight = data.totalWeight, !totalWeight.isNaN {
+            result += "Total Weight: \(totalWeight) gr.\n"
+        } else {
+            result += "Total Weight: unknown\n"
+        }
+
+        if let calories = data.calories, !calories.isNaN {
+            result += "Calories: \(calories) kkal\n"
+        } else {
+            result += "Calories: unknown\n"
         }
         return result
     }
@@ -142,38 +180,12 @@ struct CalculatorNutrition: View {
 // MARK: - Nutrition Response Model
 
 struct NutritionResponse: Codable {
-    let calories: Int
-    let totalWeight: Double
-    let totalNutrients: Nutrients?
-
-    struct Nutrients: Codable {
-        let fat: Nutrient?
-        let carbs: Nutrient?
-        let protein: Nutrient?
-    }
+    let calories: Double?
+    let totalWeight: Double?
 
     struct Nutrient: Codable {
         let label: String
-        let quantity: Double
+        let quantity: Double?
         let unit: String
-    }
-
-    enum CodingKeys: String, CodingKey {
-        case calories
-        case totalWeight
-        case totalNutrients
-    }
-
-    enum NutrientsCodingKeys: String, CodingKey {
-        case fat = "FAT"
-        case carbs = "CHOCDF"
-        case protein = "PROCNT"
-    }
-}
-
-// MARK: - Previews
-struct Nuttri_Previews: PreviewProvider {
-    static var previews: some View {
-        CalculatorNutrition()
     }
 }
