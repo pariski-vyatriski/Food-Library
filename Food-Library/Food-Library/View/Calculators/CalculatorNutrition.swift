@@ -68,7 +68,6 @@ struct CalculatorNutrition: View {
         }
     }
 // MARK: work with data
-    // Измененная функция для обработки нескольких ингредиентов
     func fetchNutritionData(for ingredients: [String]) {
         guard !ingredients.isEmpty else {
             nutritionInfo = ""
@@ -84,7 +83,6 @@ struct CalculatorNutrition: View {
         totalWeight = 0.0
         totalCalories = 0.0
 
-        // Для каждого ингредиента запрашиваем данные
         let group = DispatchGroup()
 
         for ingredient in ingredients {
@@ -144,7 +142,6 @@ struct CalculatorNutrition: View {
             task.resume()
         }
 
-        // После того как все запросы завершены, обновляем UI
         group.notify(queue: .main) {
             if !nutritionResults.isEmpty {
                 self.nutritionInfo = nutritionResults.joined(separator: "\n\n")
@@ -158,7 +155,6 @@ struct CalculatorNutrition: View {
         }
     }
 
-    // Форматирование данных для каждого ингредиента
     func formatNutritionData(_ data: NutritionResponse, ingredient: String) -> String {
         var result = "\(ingredient):\n"
 
