@@ -34,6 +34,7 @@ struct CalculatorVeight: View {
         ZStack {
             NavigationView {
                 GeometryReader { geometry in
+                    let size = geometry.size
                     ScrollView {
                         LazyVStack(spacing: 6) {
                             VStack {
@@ -158,8 +159,8 @@ struct CalculatorVeight: View {
                             }
                         }
                         .navigationTitle("Scales")
-                        .frame(minHeight: geometry.size.height)
-                        .frame(idealWidth: geometry.size.width)
+                        .frame(maxHeight: size.height * 0.96)
+                        .frame(idealWidth: size.width)
                         .padding(.horizontal, 16)
                     }.scrollDismissesKeyboard(.immediately)
                 }

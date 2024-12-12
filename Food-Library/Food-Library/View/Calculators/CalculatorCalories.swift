@@ -34,6 +34,7 @@ struct CalculatorCalories: View {
         ZStack {
             NavigationView {
                 GeometryReader { geometry in
+                    let size = geometry.size
                     ScrollView {
                         LazyVStack(spacing: 6) {
                             VStack {
@@ -119,15 +120,15 @@ struct CalculatorCalories: View {
                                             HStack {
                                                 Text("Calculate")
                                                     .font(.custom("AvenirNext-Regular", size: 18))
-                                            }.padding(EdgeInsets(top: 15, leading: 140, bottom: 15, trailing: 140))
+                                            }.frame(width: size.width * 0.9, height: size.height * 0.08)
 
                                         }.buttonStyle(.myButtonStyle)
                                     }
                                 }
                             }
                         }.navigationTitle("Calories")
-                            .frame(minHeight: geometry.size.height)
-                            .frame(idealWidth: geometry.size.width)
+                            .frame(maxHeight: size.height * 0.96)
+                            .frame(idealWidth: size.width)
                             .padding(.horizontal, 16)
                     }.scrollDismissesKeyboard(.immediately)
                 }

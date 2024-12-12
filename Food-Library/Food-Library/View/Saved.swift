@@ -40,6 +40,7 @@ struct Saved: View {
                         isAlertModalPresent.toggle()
                     }, label: {
                         Image(systemName: "plus")
+                            .foregroundColor(.color)
                     })
                 }
             }

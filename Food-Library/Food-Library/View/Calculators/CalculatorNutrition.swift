@@ -16,55 +16,58 @@ struct CalculatorNutrition: View {
 
     var body: some View {
         NavigationView {
-            ScrollView {
-                VStack {
-                    Image("ImageThree")
-                    Text("Calculate the nutritional value of ingredients")
-                        .notMainText()
-                        .multilineTextAlignment(.center)
-
-                    TextField("Example: 100 gr. of rice", text: $foodItem)
-                        .textFieldModifier()
-                        .padding()
-
-                    Button {
-                        let ingredients = foodItem.split(separator: ",").map { String($0).trimmingCharacters(in: .whitespacesAndNewlines) }
-                        fetchNutritionData(for: ingredients)
-                    } label: {
-                        HStack {
-                            Text("Calculate")
-                                .font(.custom("AvenirNext-Regular", size: 18))
-                        }
-                        .padding(EdgeInsets(top: 15, leading: 140, bottom: 15, trailing: 140))
-                    }
-                    .buttonStyle(.myButtonStyle)
-                    .disabled(isLoading)
-
-                    if isLoading {
-                        ProgressView("Loading...")
-                    } else {
-                        VStack(alignment: .leading) {
-                            if !nutritionInfo.isEmpty {
-                                Text(nutritionInfo)
-                                    .frame(maxWidth: .infinity)
-                                    .padding()
-                                    .background(
-                                        RoundedRectangle(cornerRadius: 10)
-                                            .stroke(style: StrokeStyle(lineWidth: 1, dash: [4]))
-                                            .foregroundColor(.gray)
-                                    )
+            GeometryReader { proxy in
+                let size = proxy.size
+                ScrollView {
+                    VStack {
+                        Image("ImageThree")
+                        Text("Calculate the nutritional value of ingredients")
+                            .notMainText()
+                            .multilineTextAlignment(.center)
+                        
+                        TextField("Example: 100 gr. of rice", text: $foodItem)
+                            .textFieldModifier()
+                            .padding()
+                        
+                        Button {
+                            let ingredients = foodItem.split(separator: ",").map { String($0).trimmingCharacters(in: .whitespacesAndNewlines) }
+                            fetchNutritionData(for: ingredients)
+                        } label: {
+                            HStack {
+                                Text("Calculate")
+                                    .font(.custom("AvenirNext-Regular", size: 18))
                             }
-                            if let errorMessage = errorMessage {
-                                Text(errorMessage)
-                                    .foregroundColor(.red)
+                            .frame(width: size.width * 0.9, height: size.height * 0.08)
+                        }
+                        .buttonStyle(.myButtonStyle)
+                        .disabled(isLoading)
+                        
+                        if isLoading {
+                            ProgressView("Loading...")
+                        } else {
+                            VStack(alignment: .leading) {
+                                if !nutritionInfo.isEmpty {
+                                    Text(nutritionInfo)
+                                        .frame(maxWidth: .infinity)
+                                        .padding()
+                                        .background(
+                                            RoundedRectangle(cornerRadius: 10)
+                                                .stroke(style: StrokeStyle(lineWidth: 1, dash: [4]))
+                                                .foregroundColor(.gray)
+                                        )
+                                }
+                                if let errorMessage = errorMessage {
+                                    Text(errorMessage)
+                                        .foregroundColor(.red)
+                                }
                             }
                         }
                     }
+                    .navigationTitle("Nutrition Analyzer")
+                    .padding()
                 }
-                .navigationTitle("Nutrition Analyzer")
-                .padding()
+                .scrollDismissesKeyboard(.immediately)
             }
-            .scrollDismissesKeyboard(.immediately)
         }
     }
 // MARK: work with data
@@ -123,7 +126,6 @@ struct CalculatorNutrition: View {
                     DispatchQueue.main.async {
                         nutritionResults.append(formattedData)
 
-                        // Суммирование данных
                         if let totalWeight = nutritionData.totalWeight {
                             self.totalWeight += totalWeight
                         }
