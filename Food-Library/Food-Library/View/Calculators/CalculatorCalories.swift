@@ -127,10 +127,12 @@ struct CalculatorCalories: View {
                                 }
                             }
                         }.navigationTitle("Calories")
-                            .frame(maxHeight: size.height * 0.96)
+                            .frame(maxHeight: size.height * 1.3)
                             .frame(idealWidth: size.width)
                             .padding(.horizontal, 16)
-                    }.scrollDismissesKeyboard(.immediately)
+                    }
+
+                    .scrollDismissesKeyboard(.immediately)
                 }
             }
         }

@@ -2,89 +2,114 @@ import SwiftUI
 
 struct CalculatorNutrition: View {
     @State private var foodItem: String = ""
-    @State private var nutritionInfo: String = ""
+    @State private var nutritionInfo: [NutritionData] = []
     @State private var isLoading: Bool = false
     @State private var errorMessage: String?
-    @State private var totalWeight: Double = 0.0
-    @State private var totalCalories: Double = 0.0
-    @State private var totalFat: Double = 0.0
-    @State private var totalCarbs: Double = 0.0
-    @State private var totalProtein: Double = 0.0
 
     let appId = "1bbd39ab"
     let appKey = "ccfae710b9f226c001280a643b0915f4"
 
     var body: some View {
         NavigationView {
-            GeometryReader { proxy in
-                let size = proxy.size
-                ScrollView {
-                    VStack {
+            GeometryReader { geometry in
+                let size = geometry.size
+                VStack {
+
+                    if !nutritionInfo.isEmpty {
+                        Text("")
+                    } else {
                         Image("ImageThree")
-                        Text("Calculate the nutritional value of ingredients")
-                            .notMainText()
-                            .multilineTextAlignment(.center)
-                        
-                        TextField("Example: 100 gr. of rice", text: $foodItem)
-                            .textFieldModifier()
-                            .padding()
-                        
-                        Button {
-                            let ingredients = foodItem.split(separator: ",").map { String($0).trimmingCharacters(in: .whitespacesAndNewlines) }
-                            fetchNutritionData(for: ingredients)
-                        } label: {
-                            HStack {
-                                Text("Calculate")
-                                    .font(.custom("AvenirNext-Regular", size: 18))
-                            }
-                            .frame(width: size.width * 0.9, height: size.height * 0.08)
+                    }
+
+                    Text("Calculate the nutritional value of ingredients")
+                        .notMainText()
+                        .multilineTextAlignment(.center)
+
+                    TextField("Example: 100 gr. of rice", text: $foodItem)
+                        .textFieldModifier()
+                        .padding()
+
+                    Button {
+                        let ingredients = foodItem.split(separator: ",").map { String($0).trimmingCharacters(in: .whitespacesAndNewlines) }
+                        fetchNutritionData(for: ingredients)
+                    } label: {
+                        HStack {
+                            Text("Calculate")
+                                .font(.custom("AvenirNext-Regular", size: 18))
                         }
-                        .buttonStyle(.myButtonStyle)
-                        .disabled(isLoading)
-                        
-                        if isLoading {
-                            ProgressView("Loading...")
-                        } else {
-                            VStack(alignment: .leading) {
-                                if !nutritionInfo.isEmpty {
-                                    Text(nutritionInfo)
-                                        .frame(maxWidth: .infinity)
-                                        .padding()
-                                        .background(
-                                            RoundedRectangle(cornerRadius: 10)
-                                                .stroke(style: StrokeStyle(lineWidth: 1, dash: [4]))
-                                                .foregroundColor(.gray)
-                                        )
-                                }
-                                if let errorMessage = errorMessage {
-                                    Text(errorMessage)
-                                        .foregroundColor(.red)
-                                }
+                        .frame(width: size.width * 0.9, height: size.height * 0.08)
+                    }
+                    .buttonStyle(.myButtonStyle)
+                    .disabled(isLoading)
+
+                    if isLoading {
+                        ProgressView("Loading...")
+                    } else {
+                        if let errorMessage = errorMessage {
+                            Text(errorMessage)
+                                .foregroundColor(.red)
+                        }
+
+                        if !nutritionInfo.isEmpty {
+
+                            HStack {
+                                Text("Product")
+                                    .fontWeight(.medium)
+                                    .frame(width: size.width * 0.25, alignment: .center)
+                                Text("Calories")
+                                    .fontWeight(.medium)
+                                    .frame(width: size.width * 0.25, alignment: .center)
+                                Text("Weight (gr)")
+                                    .fontWeight(.medium)
+                                    .frame(width: size.width * 0.25, alignment: .center)
                             }
+                            .frame(maxWidth: .infinity)
+                            .foregroundColor(.button)
+
+                            List(nutritionInfo) { item in
+                                VStack {
+                                    HStack {
+                                        Text(item.ingredient)
+                                            .frame(width: size.width * 0.25,
+                                                   height: size.height * 0.15,
+                                                   alignment: .center)
+                                        Text("\(item.totalWeight, specifier: "%.2f") gr")
+                                            .frame(width: size.width * 0.25,
+                                                   height: size.height * 0.15,
+                                                   alignment: .center)
+                                        Text("\(item.calories, specifier: "%.2f") kkal")
+                                            .frame(width: size.width * 0.25,
+                                                   height: size.height * 0.15,
+                                                   alignment: .center)
+                                    }
+                                }
+                                .frame(maxWidth: .infinity)
+                            }
+                            .frame(maxWidth: .infinity)
+                            .background(Color(.white))
+
+                        } else {
+                            Text("")
                         }
                     }
-                    .navigationTitle("Nutrition Analyzer")
-                    .padding()
                 }
-                .scrollDismissesKeyboard(.immediately)
+                .padding(12)
+                .navigationTitle("Nutrition Analyzer")
             }
         }
     }
-// MARK: work with data
+    // MARK: - Work with data
     func fetchNutritionData(for ingredients: [String]) {
         guard !ingredients.isEmpty else {
-            nutritionInfo = ""
             errorMessage = "Please enter an ingredient."
+            print("No ingredients entered.")
             return
         }
 
         isLoading = true
         errorMessage = nil
-
-        var nutritionResults = [String]()
-
-        totalWeight = 0.0
-        totalCalories = 0.0
+        nutritionInfo = [] // Reset previous data
+        print("Started fetching nutrition data for ingredients: \(ingredients)")
 
         let group = DispatchGroup()
 
@@ -99,6 +124,7 @@ struct CalculatorNutrition: View {
                 DispatchQueue.main.async {
                     self.errorMessage = "Invalid URL"
                 }
+                print("Invalid URL: \(urlString)")
                 group.leave()
                 return
             }
@@ -108,6 +134,7 @@ struct CalculatorNutrition: View {
                     DispatchQueue.main.async {
                         self.errorMessage = "Error: \(error.localizedDescription)"
                     }
+                    print("Error fetching data: \(error.localizedDescription)")
                     group.leave()
                     return
                 }
@@ -116,27 +143,23 @@ struct CalculatorNutrition: View {
                     DispatchQueue.main.async {
                         self.errorMessage = "No data received."
                     }
+                    print("No data received for ingredient: \(ingredient)")
                     group.leave()
                     return
                 }
 
                 do {
                     let nutritionData = try JSONDecoder().decode(NutritionResponse.self, from: data)
-                    let formattedData = self.formatNutritionData(nutritionData, ingredient: ingredient)
                     DispatchQueue.main.async {
-                        nutritionResults.append(formattedData)
-
-                        if let totalWeight = nutritionData.totalWeight {
-                            self.totalWeight += totalWeight
-                        }
-                        if let calories = nutritionData.calories {
-                            self.totalCalories += calories
-                        }
+                        let formattedData = self.formatNutritionData(nutritionData, ingredient: ingredient)
+                        nutritionInfo.append(formattedData) // Add data to nutritionInfo
+                        print("Added nutrition data for \(ingredient): \(formattedData)")
                     }
                 } catch {
                     DispatchQueue.main.async {
                         self.errorMessage = "Error decoding data: \(error.localizedDescription)"
                     }
+                    print("Error decoding data for ingredient \(ingredient): \(error.localizedDescription)")
                 }
                 group.leave()
             }
@@ -145,45 +168,31 @@ struct CalculatorNutrition: View {
         }
 
         group.notify(queue: .main) {
-            if !nutritionResults.isEmpty {
-                self.nutritionInfo = nutritionResults.joined(separator: "\n\n")
-                self.nutritionInfo += "\n\nTotal Nutrition for all ingredients:\n"
-                self.nutritionInfo += "Total Weight: \(self.totalWeight) gr.\n"
-                self.nutritionInfo += "Total Calories: \(self.totalCalories) kkal\n"
-            } else {
-                self.nutritionInfo = "No valid nutrition data found."
-            }
-            self.isLoading = false
+            isLoading = false
+            print("Finished fetching all nutrition data.")
         }
     }
 
-    func formatNutritionData(_ data: NutritionResponse, ingredient: String) -> String {
-        var result = "\(ingredient):\n"
+    func formatNutritionData(_ data: NutritionResponse, ingredient: String) -> NutritionData {
+        let totalWeight = data.totalWeight ?? 0.0
+        let calories = data.calories ?? 0.0
 
-        if let totalWeight = data.totalWeight, !totalWeight.isNaN {
-            result += "Total Weight: \(totalWeight) gr.\n"
-        } else {
-            result += "Total Weight: unknown\n"
-        }
-
-        if let calories = data.calories, !calories.isNaN {
-            result += "Calories: \(calories) kkal\n"
-        } else {
-            result += "Calories: unknown\n"
-        }
-        return result
+        let formattedData = NutritionData(ingredient: ingredient, totalWeight: totalWeight, calories: calories)
+        print("Formatted nutrition data for \(ingredient): \(formattedData)")
+        return formattedData
     }
 }
 
 // MARK: - Nutrition Response Model
-
 struct NutritionResponse: Codable {
     let calories: Double?
     let totalWeight: Double?
+}
 
-    struct Nutrient: Codable {
-        let label: String
-        let quantity: Double?
-        let unit: String
-    }
+// MARK: - Nutrition Data Model for the Table
+struct NutritionData: Identifiable {
+    var id = UUID()
+    let ingredient: String
+    let totalWeight: Double
+    let calories: Double
 }
